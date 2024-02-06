@@ -23,5 +23,21 @@ namespace FinalSon.Controllers
             _service.SaveAuction(auction);
             return View();
         }
+
+        [HttpGet]
+        public ActionResult Edit(int ID)
+        {
+            var auction = _service.GetAuctionByID(ID);
+
+
+            return View(auction);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(Auction auction)
+        {
+            _service.UpdateAuction(auction);
+            return View(auction);
+        }
     }
 }

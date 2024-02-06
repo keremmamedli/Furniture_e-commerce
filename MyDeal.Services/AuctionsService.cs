@@ -23,5 +23,16 @@ namespace MyDeal.Services
             _context.Auctions.Add(auction);
             _context.SaveChanges();
         }
+
+        public Auction GetAuctionByID(int ID)
+        {
+            return _context.Auctions.Find(ID);
+        }
+
+        public void UpdateAuction(Auction auction)
+        {
+            _context.Auctions.Update(auction);
+            _context.SaveChanges();
+        }
     }
 }
