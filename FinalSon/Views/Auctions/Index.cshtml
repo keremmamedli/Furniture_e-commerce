@@ -1,0 +1,55 @@
+﻿@model List<MyDeal.Entities.Auction>
+
+<table>
+	<thead>
+		<tr>
+			<th>
+				Title
+			</th>
+			<th>
+				Description
+			</th>
+			<th>
+				Actual Price
+			</th>
+			<th>
+				Starting Time
+			</th>
+			<th>
+				Ending Time
+			</th>
+			<th>
+				Actions
+			</th>
+
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var auction in Model)
+		{
+			<tr>
+				<td>
+					<input type="hidden" value="@auction.AuctionId" />
+					@auction.Title
+				</td>
+				<td>
+					@auction.Description
+				</td>
+				<td>
+					@auction.ActualPrice
+				</td>
+				<td>
+					@auction.StartingTime
+				</td>
+				<td>
+					@auction.EndingTime
+				</td>
+				<td>
+					<a href="Delete/@auction.AuctionId">Delete</a>
+				</td>
+			</tr>
+		}
+
+
+	</tbody>
+</table>

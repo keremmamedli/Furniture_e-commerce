@@ -1,0 +1,15 @@
+﻿@model MyDeal.Entities.Auction
+
+<h1>Are you sure you want to delete this auction?</h1>
+
+<form method="post">
+	<input type="hidden" name="ID" value="@Model.AuctionId"/>
+	<button type="submit">
+		Yes
+	</button>
+
+	<button type="submit">
+		No
+	</button>
+
+</form>
