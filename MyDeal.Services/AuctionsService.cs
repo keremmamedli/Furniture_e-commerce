@@ -24,6 +24,12 @@ namespace MyDeal.Services
             _context.SaveChanges();
         }
 
+
+        public List<Auction> GetAllAuctions()
+        {
+            return _context.Auctions.ToList();
+        }
+
         public Auction GetAuctionByID(int ID)
         {
             return _context.Auctions.Find(ID);
@@ -34,5 +40,12 @@ namespace MyDeal.Services
             _context.Auctions.Update(auction);
             _context.SaveChanges();
         }
-    }
+
+
+		public void DeleteAuction(Auction auction)
+		{
+			_context.Auctions.Remove(auction);
+			_context.SaveChanges();
+		}
+	}
 }

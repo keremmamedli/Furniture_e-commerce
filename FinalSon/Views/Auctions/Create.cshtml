@@ -1,67 +1,68 @@
 ﻿<h2>Create Auction</h2>
 
 
-<form id="createForm" method="post" action="Auctions/Create/">
 
-	<label>
-		Title
-	</label>
-	<input name="Title" />
+<form method="post">
 
-	<br />
-
-	<label>
-		Description
-	</label>
-	<input name="Description" />
+	<div class="form-group">
+		<label>
+			Title
+		</label>
+		<input class="form-control" name="Title" />
+	</div>
 
 	<br />
+	<hr />
 
-	<label>
-		ActualPrice
-	</label>
-	<input name="ActualPrice" />
-
-	<br />
-
-	<label>
-		StartingTime
-	</label>
-	<input name="StartingTime" />
+	<div class="form-group">
+		<label>
+			Description
+		</label>
+		<input class="form-control" name="Description" />
+	</div>
 
 	<br />
+	<hr />
 
-	<label>
-		EndingTime
-	</label>
-	<input name="EndingTime" />
+	<div class="form-group">
+		<label>
+			Actual Price
+		</label>
+		<input class="form-control" name="ActualPrice" />
+	</div>
 
 	<br />
-	<label>
-		Photo
-	</label>
-	<input name="PictureURL" />
+	<hr />
 
-	<button type="button" id="saveButton">
+	<div class="form-group">
+		<label>
+			Starting Time
+		</label>
+		<input class="form-control" type="date" name="StartingTime" />
+	</div>
+
+	<br />
+	<hr />
+
+	<div class="form-group">
+		<label>
+			Ending Time
+		</label>
+		<input class="form-control" type="date" name="EndingTime" />
+	</div>
+
+	<br />
+	<hr />
+
+	<div class="form-group">
+		<label>
+			Photo
+		</label>
+		<input class="form-control" name="PictureURL" />
+	</div>
+
+	<hr />
+	<button class="btn btn-success">
 		Save
 	</button>
 </form>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> <!-- Include jQuery library if not already included -->
-@section Scripts{
-	<script>
-		$(document).ready(function () { // Ensure the DOM is fully loaded before attaching event handlers
-			$("#saveButton").click(function () { // Corrected selector
-				$.ajax({
-					url: "@Url.Action("Create"), // Corrected URL
-					datatype: "json",
-					method: "post",
-					data: $("#createForm").serialize()
-				}).done(function (response) {
-					debugger;
-					$("#listingArea").html(response);
-				}).fail(function () { });
-			});
-		});
-	</script>
-}
