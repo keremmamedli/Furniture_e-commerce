@@ -1,55 +1,87 @@
-﻿@model List<MyDeal.Entities.Auction>
+﻿
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+@model List<MyDeal.Entities.Auction>
 
-<table>
-	<thead>
-		<tr>
-			<th>
-				Title
-			</th>
-			<th>
-				Description
-			</th>
-			<th>
-				Actual Price
-			</th>
-			<th>
-				Starting Time
-			</th>
-			<th>
-				Ending Time
-			</th>
-			<th>
-				Actions
-			</th>
 
-		</tr>
-	</thead>
-	<tbody>
-		@foreach (var auction in Model)
-		{
+<div id="listingArea">
+	<table>
+		<thead>
 			<tr>
-				<td>
-					<input type="hidden" value="@auction.AuctionId" />
-					@auction.Title
-				</td>
-				<td>
-					@auction.Description
-				</td>
-				<td>
-					@auction.ActualPrice
-				</td>
-				<td>
-					@auction.StartingTime
-				</td>
-				<td>
-					@auction.EndingTime
-				</td>
-				<td>
-					<a href="Delete/@auction.AuctionId">Delete</a>
-				</td>
+				<th>
+					Title
+				</th>
+				<th>
+					Description
+				</th>
+				<th>
+					Actual Price
+				</th>
+				<th>
+					Starting Time
+				</th>
+				<th>
+					Ending Time
+				</th>
+				<th>
+					Actions
+				</th>
+
 			</tr>
-		}
+		</thead>
+		<tbody>
+			@foreach (var auction in Model)
+			{
+				<tr>
+					<td>
+						<input type="hidden" value="@auction.AuctionId" />
+						@auction.Title
+					</td>
+					<td>
+						@auction.Description
+					</td>
+					<td>
+						@auction.ActualPrice
+					</td>
+					<td>
+						@auction.StartingTime
+					</td>
+					<td>
+						@auction.EndingTime
+					</td>
+					<td>
+						<a href="Edit/@auction.AuctionId">Edit</a>
+						<a href="Delete/@auction.AuctionId">Delete</a>
+					</td>
+				</tr>
+			}
 
 
-	</tbody>
-</table>
+		</tbody>
+	</table>
+</div>
+
+<div>
+	<button id="createButton">Create New Auction</button>
+</div>
+
+
+<div id="contentArea">
+
+
+</div>
+
+<script>
+	$(document).ready(function () {
+		$("#createButton").click(function () {
+			$.ajax({
+				url: "@Url.Action("Create"),
+				datatype: "json",
+				method: "get"
+			}).done(function (response) {
+				$("#contentArea").html(response);
+			}).fail(function () {
+				$("#contentArea").html("<p>Error loading create auction form.</p>");
+			});
+		});
+	});
+</script>

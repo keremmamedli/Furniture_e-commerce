@@ -16,20 +16,27 @@ namespace FinalSon.Controllers
 		public ActionResult Index()
 		{
 			var auctions = _service.GetAllAuctions();
-			return View(auctions);
+			if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+			{
+				return PartialView(auctions);
+			}
+			else
+			{
+				return View(auctions);
+			}
 		}
 
 		[HttpGet]
 		public ActionResult Create()
 		{
-			return View();
+			return PartialView();
 		}
 
 		[HttpPost]
 		public ActionResult Create(Auction auction)
 		{
 			_service.SaveAuction(auction);
-			return View();
+			return RedirectToAction("Index");
 		}
 
 		[HttpGet]

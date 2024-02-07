@@ -1,7 +1,7 @@
 ﻿<h2>Create Auction</h2>
 
 
-<form method="post">
+<form id="createForm" method="post" action="Auctions/Create/">
 
 	<label>
 		Title
@@ -13,7 +13,7 @@
 	<label>
 		Description
 	</label>
-	<input name="Description"/>
+	<input name="Description" />
 
 	<br />
 
@@ -41,7 +41,27 @@
 		Photo
 	</label>
 	<input name="PictureURL" />
-	<button>
+
+	<button type="button" id="saveButton">
 		Save
 	</button>
 </form>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> <!-- Include jQuery library if not already included -->
+@section Scripts{
+	<script>
+		$(document).ready(function () { // Ensure the DOM is fully loaded before attaching event handlers
+			$("#saveButton").click(function () { // Corrected selector
+				$.ajax({
+					url: "@Url.Action("Create"), // Corrected URL
+					datatype: "json",
+					method: "post",
+					data: $("#createForm").serialize()
+				}).done(function (response) {
+					debugger;
+					$("#listingArea").html(response);
+				}).fail(function () { });
+			});
+		});
+	</script>
+}
