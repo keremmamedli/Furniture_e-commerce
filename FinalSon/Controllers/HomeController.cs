@@ -1,24 +1,38 @@
 ﻿using FinalSon.Models;
+using FinalSon.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using MyDeal.Data;
+using MyDeal.Services;
 using System.Diagnostics;
 
 namespace FinalSon.Controllers
 {
-    public class HomeController : Controller
-    {
-        private readonly ILogger<HomeController> _logger;
+	public class HomeController : Controller
+	{
+		private readonly AuctionsService service;
 
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
+		private readonly ILogger<HomeController> _logger;
 
-        public IActionResult Index()
-        {
-            return View();
-        }
+		public HomeController(ILogger<HomeController> logger, MyDealContext context)
+		{
+			_logger = logger;
+			service = new AuctionsService(context);
+		}
 
-        public IActionResult Privacy()
+		public IActionResult Index()
+		{
+			AuctionsViewModels vModel = new AuctionsViewModels();
+
+			vModel.AllAuctions = service.GetAllAuctions();
+
+			vModel.PromotedAuctions = service.GetPromotedAuctions();
+
+			
+
+			return View(vModel);
+		}
+
+		public IActionResult Privacy()
         {
             return View();
         }

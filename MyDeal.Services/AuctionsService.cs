@@ -25,12 +25,17 @@ namespace MyDeal.Services
         }
 
 
-        public List<Auction> GetAllAuctions()
+        public List<Auction> GetPromotedAuctions()
         {
-            return _context.Auctions.ToList();
+            return _context.Auctions.Take(4).ToList();
         }
 
-        public Auction GetAuctionByID(int ID)
+		public List<Auction> GetAllAuctions()
+		{
+			return _context.Auctions.ToList();
+		}
+
+		public Auction GetAuctionByID(int ID)
         {
             return _context.Auctions.Find(ID);
         }
