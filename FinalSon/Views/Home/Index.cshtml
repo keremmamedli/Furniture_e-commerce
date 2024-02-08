@@ -1,22 +1,21 @@
 ﻿@model FinalSon.ViewModels.AuctionsViewModels
 
-<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center ">
-
-
+<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
     @foreach (var auction in Model.PromotedAuctions)
     {
-        <div class="col mb-5">
+        <div class="col mb-5" onclick="redirectToDetails('@auction.AuctionId')">
             <div class="card h-100">
                 <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
                 <div class="card-body p-4">
                     <div class="text-center">
-
                         <h5 class="fw-bolder">@auction.Title</h5>
                         Starting Bid: $@auction.ActualPrice
                     </div>
                 </div>
                 <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
+                    <div class="text-center">
+                        <a class="btn btn-outline-dark mt-auto" href="@Url.Action("Details","Auctions",new {ID = auction.AuctionId})">View options</a>
+                    </div>
                 </div>
                 <div class="text-center">
                     @auction.Description
@@ -26,34 +25,33 @@
     }
 </div>
 
-
-
-
 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-    
-    
-    @foreach(var auction in Model.AllAuctions)
+    @foreach (var auction in Model.AllAuctions)
     {
         <div class="col mb-5">
-        <div class="card h-100">
-            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-            <div class="card-body p-4">
+            <div class="card h-100">
+                <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+                <div class="card-body p-4">
+                    <div class="text-center">
+                        <h5 class="fw-bolder">@auction.Title</h5>
+                        Starting Bid: $@auction.ActualPrice
+                    </div>
+                </div>
+                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                    <div class="text-center">
+                        <a class="btn btn-outline-dark mt-auto" href="@Url.Action("Details","Auctions",new {ID = auction.AuctionId})">View options</a>
+                    </div>
+                </div>
                 <div class="text-center">
-
-                    <h5 class="fw-bolder">@auction.Title</h5>
-                   Starting Bid: $@auction.ActualPrice
+                    @auction.Description
                 </div>
             </div>
-            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
-            </div>
-            <div class="text-center">
-                @auction.Description
-            </div>
         </div>
-    </div>
     }
 </div>
 
-
-
+<script>
+    function redirectToDetails(auctionId) {
+        window.location.href = '@Url.Action("Details", "Auctions")' + '?ID=' + auctionId;
+    }
+</script>

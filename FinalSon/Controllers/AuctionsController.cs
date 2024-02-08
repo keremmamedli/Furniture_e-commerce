@@ -65,5 +65,13 @@ namespace FinalSon.Controllers
 
 			return RedirectToAction("Index");
 		}
-	}
+
+
+        [HttpGet]
+        public ActionResult Details(int ID)
+        {
+            var auction_ = _service.GetAuctionByID(ID);
+            return View(auction_);
+        }
+    }
 }
