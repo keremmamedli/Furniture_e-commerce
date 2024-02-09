@@ -72,6 +72,8 @@ namespace FinalSon.Controllers
         public ActionResult Details(int ID)
         {
             var auction_ = _service.GetAuctionByID(ID);
+			ViewBag.Title = auction_.Title;
+
             return View(auction_);
         }
     }
