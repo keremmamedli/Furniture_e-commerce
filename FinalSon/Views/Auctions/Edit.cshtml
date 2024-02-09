@@ -4,7 +4,7 @@
 
 
 <form method="post">
-	<input type="hidden" name="ID" value="@Model.AuctionId" />
+	<input type="hidden" asp-for="@Model.AuctionId"/>
 	<label>
 		Title
 	</label>
@@ -43,7 +43,7 @@
 		Photo
 	</label>
 	<input name="PictureURL" value="@Model.PictureURL"/>
-	<button>
+	<button class="btn btn-success">
 		Save
 	</button>
 </form>

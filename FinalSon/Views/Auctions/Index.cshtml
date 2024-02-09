@@ -49,8 +49,8 @@
 						<td>
 
 
-							<button class="btn btn-primary" onclick="editAuction('@auction.AuctionId')">Edit</button>
-							<button class="btn btn-danger" onclick="deleteAuction('@auction.AuctionId')">Delete</button>
+							<a class="btn btn-primary" asp-action="Edit" asp-route-ID="@auction.AuctionId">Edit</a>
+							<a class="btn btn-danger" asp-action="Delete" asp-route-ID="@auction.AuctionId">Delete</a>
 						</td>
 					</tr>
 				}
@@ -58,20 +58,8 @@
 			</tbody>
 		</table>
 
-		<button class="btn btn-success" onclick="createAuction()">Create</button>
+		<a class="btn btn-success" asp-action="Create">Create</a>
 	</div>
 
 </div>
 
-
-<script>
-	function editAuction(auctionId) {
-		window.location.href = "Edit/" + auctionId;
-	}
-	function deleteAuction(auctionId) {
-		window.location.href = "Delete/" + auctionId;
-	}
-	function createAuction() {
-		window.location.href = "Create/";
-	}
-</script>

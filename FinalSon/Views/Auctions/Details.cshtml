@@ -6,8 +6,8 @@
 		<div class="col-md-6">
 			<h1 class="display-5 fw-bolder">@Model.Title</h1>
 			<div class="fs-5 mb-5">
-				<span>Starting Bid:</span> <span class="text-decoration-line-through">$@Model.ActualPrice</span>
-				$<span id="discountedPrice"></span>
+				<span>Starting Bid:</span> $<span id="discountedPrice" class="text-decoration-line-through"></span>
+				$<span>@Model.ActualPrice</span>
 			</div>
 			<p class="lead">@Model.Description</p>
 			<div class="d-flex">
@@ -47,7 +47,7 @@
 	}
 }
 <script>
-	var result = @Model.ActualPrice * 0.9;
+	var result = @Model.ActualPrice * 1.1;
 	document.getElementById('discountedPrice').innerHTML = result.toFixed(2);
 
 	function redirectToDetails(auctionId) {

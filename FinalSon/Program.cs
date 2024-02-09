@@ -37,6 +37,11 @@ namespace FinalSon
             app.UseAuthorization();
 
             app.MapControllerRoute(
+                name: "Details",
+                pattern: "auction-details/{id?}",
+                defaults: new { action = "Details", controller = "Auctions" });
+
+			app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 

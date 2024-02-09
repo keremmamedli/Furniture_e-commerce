@@ -30,7 +30,7 @@ namespace FinalSon.Controllers
 		public ActionResult Create(Auction auction)
 		{
 			_service.SaveAuction(auction);
-			return View();
+			return RedirectToAction("Index");
 		}
 
 		[HttpGet]
@@ -46,7 +46,8 @@ namespace FinalSon.Controllers
 		public ActionResult Edit(Auction auction)
 		{
 			_service.UpdateAuction(auction);
-			return View(auction);
+
+			return RedirectToAction("Index");
 		}
 
 		[HttpGet]
