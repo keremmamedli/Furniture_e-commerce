@@ -1,80 +1,104 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyDeal.Entities;
 using MyDeal.Services;
+using System;
 
 namespace FinalSon.Controllers
 {
-	public class AuctionsController : Controller
-	{
-		private readonly AuctionsService _service;
-		public AuctionsController(AuctionsService service)
-		{
-			_service = service;
-		}
+    public class AuctionsController : Controller
+    {
+        private readonly AuctionsService _service;
+        public AuctionsController(AuctionsService service)
+        {
+            _service = service;
+        }
 
-		[HttpGet]
-		public ActionResult Index()
-		{
-			var auctions = _service.GetAllAuctions();
+        [HttpGet]
+        public ActionResult Index()
+        {
+            var auctions = _service.GetAllAuctions();
 
-			return View(auctions);
-		}
+            return View(auctions);
+        }
 
-		[HttpGet]
-		public ActionResult Create()
-		{
-			return View();
-		}
+        [HttpGet]
+        public ActionResult Create()
+        {
+            return View();
+        }
 
-		[HttpPost]
-		public ActionResult Create(Auction auction)
-		{
-			_service.SaveAuction(auction);
-			return RedirectToAction("Index");
-		}
+        [HttpPost]
+        public ActionResult Create(Auction auction)
+        {
+            _service.SaveAuction(auction);
+            return RedirectToAction("Index");
+        }
 
-		[HttpGet]
-		public ActionResult Edit(int ID)
-		{
-			var auction = _service.GetAuctionByID(ID);
+        [HttpGet]
+        public ActionResult Edit(int ID)
+        {
+            var auction = _service.GetAuctionByID(ID);
 
+            if (auction != null)
+            {
+                ViewBag.Title = auction.Title;
+                return View(auction);
+            }
+            else
+            {
+                return Redirect("/Home/Error");
+            }
+        }
 
-			return View(auction);
-		}
+        [HttpPost]
+        public ActionResult Edit(Auction auction)
+        {
+            _service.UpdateAuction(auction);
 
-		[HttpPost]
-		public ActionResult Edit(Auction auction)
-		{
-			_service.UpdateAuction(auction);
+            return RedirectToAction("Index");
+        }
 
-			return RedirectToAction("Index");
-		}
+        [HttpGet]
+        public ActionResult Delete(int ID)
+        {
 
-		[HttpGet]
-		public ActionResult Delete(int ID)
-		{
-			var auction_ = _service.GetAuctionByID(ID);
-			return View(auction_);
-		}
+            var auction_ = _service.GetAuctionByID(ID);
+            if(auction_ != null)
+            {
+                return View(auction_);
+            }
+            else
+            {
+                return Redirect("/Home/Error");
+            }
+        }
 
-		[HttpPost]
-		public ActionResult Delete(int ID,int b)
-		{
-			var auction_ = _service.GetAuctionByID(ID);
+        [HttpPost]
+        public ActionResult Delete(int ID, int b)
+        {
 
-			_service.DeleteAuction(auction_);
+            var auction_ = _service.GetAuctionByID(ID);
 
-			return RedirectToAction("Index");
-		}
+            _service.DeleteAuction(auction_);
+
+            return RedirectToAction("Index");
+        }
 
 
         [HttpGet]
         public ActionResult Details(int ID)
         {
             var auction_ = _service.GetAuctionByID(ID);
-			ViewBag.Title = auction_.Title;
 
-            return View(auction_);
+            if (auction_ != null)
+            {
+                ViewBag.Title = auction_.Title;
+                return View(auction_);
+            }
+            else
+            {
+                return Redirect("/Home/Error");
+            }
         }
     }
 }
