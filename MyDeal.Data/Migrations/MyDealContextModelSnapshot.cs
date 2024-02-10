@@ -94,7 +94,7 @@ namespace MyDeal.Data.Migrations
 
             modelBuilder.Entity("MyDeal.Entities.AuctionPicture", b =>
                 {
-                    b.HasOne("MyDeal.Entities.Auction", null)
+                    b.HasOne("MyDeal.Entities.Auction", "Auction")
                         .WithMany("AuctionPictures")
                         .HasForeignKey("AuctionID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -105,6 +105,8 @@ namespace MyDeal.Data.Migrations
                         .HasForeignKey("PictureID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Auction");
 
                     b.Navigation("Picture");
                 });

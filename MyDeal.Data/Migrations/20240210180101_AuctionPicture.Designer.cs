@@ -12,8 +12,8 @@ using MyDeal.Data;
 namespace MyDeal.Data.Migrations
 {
     [DbContext(typeof(MyDealContext))]
-    [Migration("20240210114721_RecreateAuctionPictureTable")]
-    partial class RecreateAuctionPictureTable
+    [Migration("20240210180101_AuctionPicture")]
+    partial class AuctionPicture
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -96,7 +96,7 @@ namespace MyDeal.Data.Migrations
 
             modelBuilder.Entity("MyDeal.Entities.AuctionPicture", b =>
                 {
-                    b.HasOne("MyDeal.Entities.Auction", null)
+                    b.HasOne("MyDeal.Entities.Auction", "Auction")
                         .WithMany("AuctionPictures")
                         .HasForeignKey("AuctionID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -107,6 +107,8 @@ namespace MyDeal.Data.Migrations
                         .HasForeignKey("PictureID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Auction");
 
                     b.Navigation("Picture");
                 });

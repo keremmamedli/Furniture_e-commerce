@@ -41,7 +41,7 @@
                 {
                     <tr>
                         <td>
-                            <input type="hidden" value="@auction.AuctionId" />
+                            <input type="hidden" value="@auction.ID" />
                             @auction.Title
                         </td>
                         <td>
@@ -57,8 +57,8 @@
                             @auction.EndingTime
                         </td>
                         <td>
-                            <a class="btn btn-primary" asp-action="Edit" asp-route-ID="@auction.AuctionId">Edit</a>
-                            <a class="btn btn-danger" asp-action="Delete" asp-route-ID="@auction.AuctionId">Delete</a>
+                            <a class="btn btn-primary" asp-action="Edit" asp-route-ID="@auction.ID">Edit</a>
+                            <a class="btn btn-danger" asp-action="Delete" asp-route-ID="@auction.ID">Delete</a>
                         </td>
                     </tr>
                 }

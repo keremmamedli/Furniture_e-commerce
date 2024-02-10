@@ -8,9 +8,10 @@ namespace MyDeal.Entities
 {
 	public class AuctionPicture : BaseEntity
 	{
-        public int AuctionID { get; set; }
+		public int AuctionID { get; set; }
 		public int PictureID { get; set; }
 		public Picture Picture { get; set; }
+		public Auction Auction { get; set; }
 
 	}
 }
