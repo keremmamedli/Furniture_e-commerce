@@ -2,12 +2,14 @@
 using MyDeal.Entities;
 using MyDeal.Services;
 using System;
+using FinalSon.ViewModels;
 
 namespace FinalSon.Controllers
 {
     public class AuctionsController : Controller
     {
         private readonly AuctionsService _service;
+
         public AuctionsController(AuctionsService service)
         {
             _service = service;
@@ -16,9 +18,12 @@ namespace FinalSon.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            var auctions = _service.GetAllAuctions();
+            AuctionsListingViewModels model = new AuctionsListingViewModels();
 
-            return View(auctions);
+
+            model.Auctions = _service.GetAllAuctions();
+
+            return View(model);
         }
 
         [HttpGet]
