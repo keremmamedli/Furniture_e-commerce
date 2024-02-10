@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyDeal.Data;
 
@@ -11,9 +12,10 @@ using MyDeal.Data;
 namespace MyDeal.Data.Migrations
 {
     [DbContext(typeof(MyDealContext))]
-    partial class MyDealContextModelSnapshot : ModelSnapshot
+    [Migration("20240210114721_RecreateAuctionPictureTable")]
+    partial class RecreateAuctionPictureTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
