@@ -5,47 +5,72 @@
 
 <form method="post">
 	<input type="hidden" asp-for="@Model.ID"/>
-	<label>
-		Title
-	</label>
-	<input name="Title" value="@Model.Title"/>
+	<div class="form-group">
+		<label>
+			Title
+		</label>
+		<input name="Title" value="@Model.Title" />
+	</div>
+	
+	<br />
+	<hr />
+
+
+	<div class="form-group">
+		<label>
+			Description
+		</label>
+		<input name="Description" value="@Model.Description" />
+	</div>
+	
 
 	<br />
+	<hr />
 
-	<label>
-		Description
-	</label>
-	<input name="Description" value="@Model.Description"/>
-
-	<br />
-
-	<label>
-		ActualPrice
-	</label>
-	<input name="ActualPrice" value="@Model.ActualPrice"/>
+	<div class="form-group">
+		<label>
+			ActualPrice
+		</label>
+		<input name="ActualPrice" value="@Model.ActualPrice" />
+	</div>
+	
 
 	<br />
+	<hr />
 
-	<label>
-		StartingTime
-	</label>
-	<input type="date" name="StartingTime" value="@Model.StartingTime" />
-
-	<br />
-
-	<label>
-		EndingTime
-	</label>
-	<input type="date" name="EndingTime" value="@Model.EndingTime" />
+	<div class="form-group">
+		<label>
+			StartingTime
+		</label>
+		<input type="date" name="StartingTime" value="@Model.StartingTime" />
+	</div>
+	
 
 	<br />
-	<label for="lang">Type of Car</label>
-	<select name="carType">
-		@foreach (var carType in Enum.GetValues(typeof(MyDeal.Entities.TypeOfCar)))
-		{
-			<option style="font-weight:bold" value="@((int)carType)">@Model.TypeOfCar</option>
-		}
-	</select>
+	<hr />
+
+	<div class="form-group">
+		<label>
+			EndingTime
+		</label>
+		<input type="date" name="EndingTime" value="@Model.EndingTime" />
+	</div>
+	
+
+	<br />
+	<hr />
+
+	<div class="form-group">
+		<label for="lang">Type of Car</label>
+		<select name="carType">
+			@foreach (var carType in Enum.GetValues(typeof(MyDeal.Entities.TypeOfCar)))
+			{
+				<option style="font-weight:bold" value="@((int)carType)">@Model.TypeOfCar</option>
+			}
+		</select>
+	</div>
+	
+
 
 	<br />
 	<button class="btn btn-success">

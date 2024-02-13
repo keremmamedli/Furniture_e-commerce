@@ -37,7 +37,7 @@ namespace MyDeal.Services
 
 		public Auction GetAuctionByID(int ID)
         {
-            return _context.Auctions.Find(ID);
+            return _context.Auctions.Include(x => x.AuctionPictures).ThenInclude(p => p.Picture).ToList().Find(x=>x.ID == ID);
         }
 
         public void UpdateAuction(Auction auction)
