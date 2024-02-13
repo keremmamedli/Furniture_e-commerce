@@ -1,8 +1,7 @@
-﻿@using FinalSon.ViewModels;
+﻿@using FinalSon.ViewModels
 @model CreateAuction
 
 <h2>Create Auction</h2>
-
 
 <form method="post" enctype="multipart/form-data">
 
@@ -10,7 +9,7 @@
 		<label>
 			Title
 		</label>
-		<input class="form-control" asp-for="auction.Title" />
+		<input class="form-control" asp-for="Title" />
 	</div>
 
 	<br />
@@ -20,7 +19,7 @@
 		<label>
 			Description
 		</label>
-		<input class="form-control" asp-for="auction.Description" />
+		<input class="form-control" asp-for="Description" />
 	</div>
 
 	<br />
@@ -30,7 +29,7 @@
 		<label>
 			Actual Price
 		</label>
-		<input class="form-control" asp-for="auction.ActualPrice" />
+		<input class="form-control" asp-for="ActualPrice" />
 	</div>
 
 	<br />
@@ -40,7 +39,7 @@
 		<label>
 			Starting Time
 		</label>
-		<input class="form-control" type="date" asp-for="auction.StartingTime" />
+		<input class="form-control" type="date" asp-for="StartingTime" />
 	</div>
 
 	<br />
@@ -50,12 +49,12 @@
 		<label>
 			Ending Time
 		</label>
-		<input class="form-control" type="date" asp-for="auction.EndingTime" />
+		<input class="form-control" type="date" asp-for="EndingTime" />
 	</div>
 	<br />
 	<hr />
 	<label for="lang">Type of Car</label>
-	<select asp-for="auction.TypeOfCar">
+	<select asp-for="TypeOfCar">
 		@foreach (var carType in Enum.GetValues(typeof(MyDeal.Entities.TypeOfCar)))
 		{
 			<option style="font-weight:bold" value="@((int)carType)">@carType</option>
@@ -68,7 +67,7 @@
 		<label>
 			Select Photos
 		</label>
-		<input id="auctionPicture" class="form-control" type="file" asp-for="formFiles" multiple/>
+		<input id="formFiles" class="form-control" type="file" asp-for="formFiles" multiple />
 	</div>
 
 	<br />

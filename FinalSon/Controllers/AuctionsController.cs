@@ -32,22 +32,36 @@ namespace FinalSon.Controllers
         public ActionResult Create()
         {
             CreateAuction auction = new CreateAuction();
-            return View(auction);
+            return View();
         }
 
         [HttpPost]
         public async Task<ActionResult> Create(CreateAuction auction)
         {
-            foreach (var picture in auction.formFiles)
+            Auction createdAuction = new Auction() {
+                Title = auction.Title,
+                Description = auction.Description,
+                ActualPrice = auction.ActualPrice,
+                StartingTime = auction.StartingTime,
+                EndingTime = auction.EndingTime,
+                TypeOfCar = auction.TypeOfCar,
+            };
+            createdAuction.AuctionPictures = new List<AuctionPicture>();
+            foreach (var item in auction.formFiles)
             {
-                if (picture.CheckFile(3))
+                if (item.CheckFile(3))
                 {
-                    Picture UploadPicture = new() { URL = await picture.UploadFile(_webHostEnvironment.WebRootPath,"Upload") };
-                    AuctionPicture auctionPicture = new() {Auction = auction.auction, Picture = UploadPicture};
-                    auction.auction.AuctionPictures.Add(auctionPicture);
+                    AuctionPicture picture = new AuctionPicture() {
+                        Auction = createdAuction,
+                        Picture = new Picture()
+                        {
+                            URL = await item.UploadFile(_webHostEnvironment.WebRootPath,"Upload")
+                        }
+                    };
+                    createdAuction.AuctionPictures.Add(picture);
                 }
             }
-            _service.SaveAuction(auction.auction);
+            _service.SaveAuction(createdAuction);
             return RedirectToAction("Index");
         }
 

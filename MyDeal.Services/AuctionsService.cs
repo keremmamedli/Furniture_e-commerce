@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualBasic;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
 using MyDeal.Data;
 using MyDeal.Entities;
 using System;
@@ -24,15 +25,14 @@ namespace MyDeal.Services
             _context.SaveChanges();
         }
 
-
         public List<Auction> GetPromotedAuctions()
         {
-            return _context.Auctions.Take(4).ToList();
+            return _context.Auctions.Include(x=>x.AuctionPictures).ThenInclude(p=>p.Picture).Take(4).ToList();
         }
 
 		public List<Auction> GetAllAuctions()
 		{
-            return _context.Auctions.ToList();
+            return _context.Auctions.Include(x => x.AuctionPictures).ThenInclude(p => p.Picture).ToList();
         }
 
 		public Auction GetAuctionByID(int ID)
