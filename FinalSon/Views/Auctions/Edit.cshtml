@@ -39,6 +39,15 @@
 	<input type="date" name="EndingTime" value="@Model.EndingTime" />
 
 	<br />
+	<label for="lang">Type of Car</label>
+	<select name="carType">
+		@foreach (var carType in Enum.GetValues(typeof(MyDeal.Entities.TypeOfCar)))
+		{
+			<option style="font-weight:bold" value="@((int)carType)">@Model.TypeOfCar</option>
+		}
+	</select>
+
+	<br />
 	<button class="btn btn-success">
 		Save
 	</button>

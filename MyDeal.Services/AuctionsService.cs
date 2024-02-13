@@ -32,8 +32,8 @@ namespace MyDeal.Services
 
 		public List<Auction> GetAllAuctions()
 		{
-			return _context.Auctions.ToList();
-		}
+            return _context.Auctions.ToList();
+        }
 
 		public Auction GetAuctionByID(int ID)
         {

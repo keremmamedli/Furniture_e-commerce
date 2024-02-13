@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MyDeal.Data.Migrations
 {
-    public partial class AuctionPicture : Migration
+    public partial class AddTypeOfCar : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -19,7 +19,8 @@ namespace MyDeal.Data.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ActualPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     StartingTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EndingTime = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    EndingTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TypeOfCar = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

@@ -15,8 +15,7 @@ namespace MyDeal.Entities
         public decimal ActualPrice { get; set; }
         public DateTime StartingTime { get; set; }
         public DateTime EndingTime { get; set; }
-
+        public TypeOfCar TypeOfCar { get; set; }
         public  List<AuctionPicture> AuctionPictures { get; set; }
-
     }
 }

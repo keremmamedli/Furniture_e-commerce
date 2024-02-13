@@ -32,7 +32,10 @@
                         Ending Time
                     </th>
                     <th>
-                        Actions
+                        Type of Car
+                    </th>
+                    <th>
+                        Auctions
                     </th>
                 </tr>
             </thead>
@@ -55,6 +58,9 @@
                         </td>
                         <td>
                             @auction.EndingTime
+                        </td>
+                        <td>
+                            @auction.TypeOfCar
                         </td>
                         <td>
                             <a class="btn btn-primary" asp-action="Edit" asp-route-ID="@auction.ID">Edit</a>

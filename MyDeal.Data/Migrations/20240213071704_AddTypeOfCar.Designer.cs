@@ -12,8 +12,8 @@ using MyDeal.Data;
 namespace MyDeal.Data.Migrations
 {
     [DbContext(typeof(MyDealContext))]
-    [Migration("20240210180101_AuctionPicture")]
-    partial class AuctionPicture
+    [Migration("20240213071704_AddTypeOfCar")]
+    partial class AddTypeOfCar
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -48,6 +48,9 @@ namespace MyDeal.Data.Migrations
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TypeOfCar")
+                        .HasColumnType("int");
 
                     b.HasKey("ID");
 

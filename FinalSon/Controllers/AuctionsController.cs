@@ -8,11 +8,13 @@ namespace FinalSon.Controllers
 {
     public class AuctionsController : Controller
     {
+        private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly AuctionsService _service;
 
-        public AuctionsController(AuctionsService service)
+        public AuctionsController(AuctionsService service, IWebHostEnvironment webHostEnvironment)
         {
             _service = service;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         [HttpGet]
@@ -29,13 +31,23 @@ namespace FinalSon.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            return View();
+            CreateAuction auction = new CreateAuction();
+            return View(auction);
         }
 
         [HttpPost]
-        public ActionResult Create(Auction auction)
+        public async Task<ActionResult> Create(CreateAuction auction)
         {
-            _service.SaveAuction(auction);
+            foreach (var picture in auction.formFiles)
+            {
+                if (picture.CheckFile(3))
+                {
+                    Picture UploadPicture = new() { URL = await picture.UploadFile(_webHostEnvironment.WebRootPath,"Upload") };
+                    AuctionPicture auctionPicture = new() {Auction = auction.auction, Picture = UploadPicture};
+                    auction.auction.AuctionPictures.Add(auctionPicture);
+                }
+            }
+            _service.SaveAuction(auction.auction);
             return RedirectToAction("Index");
         }
 

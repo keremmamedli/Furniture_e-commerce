@@ -47,6 +47,9 @@ namespace MyDeal.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("TypeOfCar")
+                        .HasColumnType("int");
+
                     b.HasKey("ID");
 
                     b.ToTable("Auctions");
