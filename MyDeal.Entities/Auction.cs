@@ -10,6 +10,8 @@ namespace MyDeal.Entities
 {
     public class Auction : BaseEntity
     {
+        public Category Category { get; set; }
+        public int CategoryID { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public decimal ActualPrice { get; set; }

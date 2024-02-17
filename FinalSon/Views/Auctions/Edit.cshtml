@@ -65,11 +65,18 @@
 		<select name="carType">
 			@foreach (var carType in Enum.GetValues(typeof(MyDeal.Entities.TypeOfCar)))
 			{
-				<option style="font-weight:bold" value="@((int)carType)">@Model.TypeOfCar</option>
+				<option style="font-weight:bold" value="@((int)carType)">@carType</option>
 			}
 		</select>
 	</div>
-	
+	<br />
+	<hr />
+
+	<div class="form-group">
+		<label>Select Photos</label>
+		<input id="formFiles" class="form-control" type="file" name="formFiles" multiple />
+	</div>
+
 
 
 	<br />

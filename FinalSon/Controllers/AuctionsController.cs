@@ -16,7 +16,6 @@ namespace FinalSon.Controllers
             _service = service;
             _webHostEnvironment = webHostEnvironment;
         }
-
         [HttpGet]
         public ActionResult Index()
         {
@@ -31,7 +30,9 @@ namespace FinalSon.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            CreateAuction auction = new CreateAuction();
+			CreateAuction model = new CreateAuction();
+			CreateAuction auction = new CreateAuction();
+
             return View();
         }
 

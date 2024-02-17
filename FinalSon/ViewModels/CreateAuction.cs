@@ -10,6 +10,7 @@ namespace FinalSon.ViewModels
         public DateTime StartingTime { get; set; }
         public DateTime EndingTime { get; set; }
         public TypeOfCar TypeOfCar { get; set; }
+        public List<Category> Categories { get; set; }
         public IFormFile[] formFiles { get; set; }
 	}
 }

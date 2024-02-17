@@ -5,26 +5,22 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MyDeal.Data.Migrations
 {
-    public partial class AddTypeOfCar : Migration
+    public partial class MyMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Auctions",
+                name: "Categories",
                 columns: table => new
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ActualPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    StartingTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EndingTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    TypeOfCar = table.Column<int>(type: "int", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Auctions", x => x.ID);
+                    table.PrimaryKey("PK_Categories", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -38,6 +34,31 @@ namespace MyDeal.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Pictures", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Auctions",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CategoryID = table.Column<int>(type: "int", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ActualPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    StartingTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndingTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TypeOfCar = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Auctions", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Auctions_Categories_CategoryID",
+                        column: x => x.CategoryID,
+                        principalTable: "Categories",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -75,6 +96,11 @@ namespace MyDeal.Data.Migrations
                 name: "IX_AuctionPictures_PictureID",
                 table: "AuctionPictures",
                 column: "PictureID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Auctions_CategoryID",
+                table: "Auctions",
+                column: "CategoryID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -87,6 +113,9 @@ namespace MyDeal.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Pictures");
+
+            migrationBuilder.DropTable(
+                name: "Categories");
         }
     }
 }

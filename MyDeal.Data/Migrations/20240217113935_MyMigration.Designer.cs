@@ -12,8 +12,8 @@ using MyDeal.Data;
 namespace MyDeal.Data.Migrations
 {
     [DbContext(typeof(MyDealContext))]
-    [Migration("20240213071704_AddTypeOfCar")]
-    partial class AddTypeOfCar
+    [Migration("20240217113935_MyMigration")]
+    partial class MyMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -35,6 +35,9 @@ namespace MyDeal.Data.Migrations
                     b.Property<decimal>("ActualPrice")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<int>("CategoryID")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -53,6 +56,8 @@ namespace MyDeal.Data.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("CategoryID");
 
                     b.ToTable("Auctions");
                 });
@@ -80,6 +85,27 @@ namespace MyDeal.Data.Migrations
                     b.ToTable("AuctionPictures");
                 });
 
+            modelBuilder.Entity("MyDeal.Entities.Category", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Categories");
+                });
+
             modelBuilder.Entity("MyDeal.Entities.Picture", b =>
                 {
                     b.Property<int>("ID")
@@ -95,6 +121,17 @@ namespace MyDeal.Data.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Pictures");
+                });
+
+            modelBuilder.Entity("MyDeal.Entities.Auction", b =>
+                {
+                    b.HasOne("MyDeal.Entities.Category", "Category")
+                        .WithMany("Auctions")
+                        .HasForeignKey("CategoryID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
                 });
 
             modelBuilder.Entity("MyDeal.Entities.AuctionPicture", b =>
@@ -119,6 +156,11 @@ namespace MyDeal.Data.Migrations
             modelBuilder.Entity("MyDeal.Entities.Auction", b =>
                 {
                     b.Navigation("AuctionPictures");
+                });
+
+            modelBuilder.Entity("MyDeal.Entities.Category", b =>
+                {
+                    b.Navigation("Auctions");
                 });
 #pragma warning restore 612, 618
         }
