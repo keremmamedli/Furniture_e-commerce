@@ -62,6 +62,15 @@
 	</select>
 	<br />
 	<hr />
+	<label for="lang">Category of Car</label>
+	<select asp-for="Category">
+		@foreach (var carType in Enum.GetValues(typeof(MyDeal.Entities.Category)))
+		{
+			<option style="font-weight:bold" value="@((int)carType)">@carType</option>
+		}
+	</select>
+	<br />
+	<hr />
 
 	<div class="form-group">
 		<label>

@@ -8,9 +8,25 @@ namespace MyDeal.Entities
 {
 	public enum TypeOfCar 
 	{
-		HATCHBACK,
-		SEDAN,
-		SUV,
-		XUV
+		Toyota,
+		Volkswagen,
+		Lamborghini,
+		Ford,
+		Jaguar,
+		Audi,
+		Mercedes,
+		Bentley,
+		BMW,
+		Ferrari,
+		Porsche,
+		LandRover,
+		Nissan,
+		Lada,
+		Hyundai,
+		Kia,
+		Fiat,
+		Maserati,
+		Chevrolet,
+		SEAT
 	}
 }
