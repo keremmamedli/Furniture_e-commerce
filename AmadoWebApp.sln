@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmadoApp.MVC", "AmadoApp.MVC\AmadoApp.MVC.csproj", "{ED2694DD-5026-4519-92B3-6DA0E2BE729C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AmadoApp.MVC", "AmadoApp.MVC\AmadoApp.MVC.csproj", "{ED2694DD-5026-4519-92B3-6DA0E2BE729C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmadoApp.Business", "AmadoApp.Business\AmadoApp.Business.csproj", "{A610175D-FA19-4F4B-B832-6EFA1D875F97}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AmadoApp.Business", "AmadoApp.Business\AmadoApp.Business.csproj", "{A610175D-FA19-4F4B-B832-6EFA1D875F97}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmadoApp.DAL", "AmadoApp.DAL\AmadoApp.DAL.csproj", "{DAF7611F-F3A9-48F0-A5B3-8172CE7373AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AmadoApp.DAL", "AmadoApp.DAL\AmadoApp.DAL.csproj", "{DAF7611F-F3A9-48F0-A5B3-8172CE7373AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmadoApp.Core", "AmadoApp.Core\AmadoApp.Core.csproj", "{A68C6937-F719-4CAC-8312-CD0FFB89D3BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AmadoApp.Core", "AmadoApp.Core\AmadoApp.Core.csproj", "{A68C6937-F719-4CAC-8312-CD0FFB89D3BE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

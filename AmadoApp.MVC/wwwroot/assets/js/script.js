@@ -1,4 +1,4 @@
-function toggleMenu() {
+﻿function toggleMenu() {
     var x = document.getElementById("myNavbar");
     if (x.className === "navbar") {
         x.className += " responsive";
@@ -178,3 +178,4 @@ function purchaseBtnClicked () {
 // end of purchase items
 
 //alert user if cart is empty
+
