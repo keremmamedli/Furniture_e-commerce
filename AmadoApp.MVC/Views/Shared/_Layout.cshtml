@@ -1,0 +1,162 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/assets/css/styles.css">
+</head>
+<body>
+    <header>
+        <div class="navbar" id="myNavbar">
+            <span class="logo">Furni.</span>
+            <span class="@(Context.Request.Path == "/" ? "active" : "")"><a asp-action="Index" asp-controller="Home">Home</a></span>
+            <span class="@(Context.Request.Path == "/Shop/ShopList" ? "active" : "")"><a asp-action="ShopList" asp-controller="Shop">Shop</a></span>
+            <span class="@(Context.Request.Path == "/About/AboutView" ? "active" : "")"><a asp-action="AboutView" asp-controller="About">About</a></span>
+            <span class="@(Context.Request.Path == "/Services/ServicesView" ? "active" : "")"><a asp-action="ServicesView" asp-controller="Services">Services</a></span>
+            <span class="@(Context.Request.Path == "/Blog/BlogView" ? "active" : "")"><a asp-action="BlogView" asp-controller="Blog">Blog</a></span>
+            @if (!User.Identity.IsAuthenticated)
+            {
+                <span class="nav-item"><a asp-action="Login" asp-controller="Account">Login</a></span>
+                <span class="nav-item"><a asp-action="Register" asp-controller="Account">Register</a></span>
+            }
+            else
+            {
+                <span class="nav-item"><a asp-action="Logout" asp-controller="Account">Logout</a></span>
+                if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
+                {
+                    <span class="nav-item"><a asp-area="Manage" asp-action="Index" asp-controller="Admin">Admin Panel</a></span>
+                }
+            }
+            <div class="menu" onclick="toggleMenu()">&#9776; Menu</div>
+            <!-- <div class="basket-icon" onclick="openBasket()">🛒</div> -->
+            <div class="cart-btn">
+                <i id="cart" class="fas fa-shopping-cart"></i>
+                <span class="cart-quantity">0</span>
+            </div>
+        </div>
+        <div class="cart-modal-overlay">
+            <div class="cart-modal">
+                <i id="close-btn" class="fas fa-times"></i>
+                <h1 class="cart-is-empty">Cart is empty</h1>
+                <div class="product-rows">
+                </div>
+                <div class="total">
+                    <h1 class="cart-total">TOTAL</h1>
+                    <span class="total-price">$0</span>
+                    <button class="purchase-btn">PURCHASE</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="blogImage">
+            <div class="row">
+                <div class="blog">
+                    <div class="col-lg-5">
+                        <div class="left">
+                            <h1>Modern Interior Design Studio</h1>
+                            <p>Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate velit imperdiet dolor tempor tristique.</p>
+                            <button type="button" class="btn first btn-secondary btn-lg">Shop Now</button>
+                            <button type="button" class="btn second btn-secondary btn-lg">Explore</button>
+                        </div>
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="right">
+                            <img src="https://themewagon.github.io/furni/images/couch.png" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        @RenderBody()
+    </main>
+    @Html.Partial("_SubscribePartial")
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="footer">
+                    <div class="left">
+                        <h1>Furni</h1>
+                        <p>Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate velit imperdiet dolor tempor tristique. Pellentesque habitant</p>
+                        <div class="social">
+                            <a href=""> <i class="fab fa-instagram"></i></a>
+                            <a href=""><i class="fab fa-facebook"></i></a>
+                            <a href=""><i class="fab fa-twitter"></i></a>
+                            <a href=""><i class="fab fa-telegram"></i></a>
+                        </div>
+                    </div>
+                    <div class="right">
+                        <div class="box">
+                            <ul >
+                                <li @(Context.Request.Path == "/About/AboutView" ? "class=active" : "")><a asp-action="AboutView" asp-controller="About" style="text-decoration:none;color:#333">About</a></li>
+                                <li @(Context.Request.Path == "/Services/ServicesView" ? "class=active" : "")><a asp-action="ServicesView" asp-controller="Services" style="text-decoration:none;color:#333">Services</a></li>
+                                <li @(Context.Request.Path == "/Blog/BlogView" ? "class=active" : "")><a asp-action="BlogView" asp-controller="Blog" style="text-decoration:none;color:#333">Blog</a></li>
+                                @if (!User.Identity.IsAuthenticated)
+                                {
+                                    <li class="nav-item"><a class="nav-link" asp-action="Login" asp-controller="Account" style="text-decoration:none;color:#333">Login</a></li>
+                                    <li class="nav-item"><a class="nav-link" asp-action="Register" asp-controller="Account" style="text-decoration:none;color:#333">Register</a></li>
+                                }
+                                else
+                                {
+                                    <li class="nav-item"><a class="nav-link" asp-action="Logout" asp-controller="Account" style="text-decoration:none;color:#333">Logout</a></li>
+                                    if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
+                                    {
+                                        <li class="nav-item"><a class="nav-link" asp-area="Manage" asp-action="Index" asp-controller="Admin" style="text-decoration:none;color:#333">Admin Panel</a></li>
+                                    }
+                                }
+                            </ul>
+                        </div>
+
+                        <div class="box">
+                            <ul>
+                                <li>Support</li>
+                                <li>Knowledge base</li>
+                                <li>Live chat</li>
+                            </ul>
+                        </div>
+                        <div class="box">
+                            <ul>
+                                <li>Jobs</li>
+                                <li>Our team</li>
+                                <li>Leadership</li>
+                                <li>Privacy policy</li>
+                            </ul>
+                        </div>
+                        <div class="box">
+                            <ul>
+                                <li>Nordic chair</li>
+                                <li>Kruzo Aero</li>
+                                <li>Ergonomic chair</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="down">
+                <div class="left">
+                    <p>Copyright ©2024. All Rights Reserved. — Designed with love by Untree.co </p>
+                    <p>Distributed By ThemeWagon</p>
+                </div>
+                <div class="right">
+                    <ul>
+                        <li>Terms & Conditions</li>
+                        <li>Privacy Policy</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/assets/js/jquery/jquery-2.2.4.min.js"></script>
+    <script src="/assets/js/popper.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+    <script src="/assets/js/plugins.js"></script>
+    <script src="/assets/js/active.js"></script>
+    <script src="/assets/js/script.js"></script>
+</body>
+</html>

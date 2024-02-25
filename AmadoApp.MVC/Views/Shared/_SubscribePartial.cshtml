@@ -1,0 +1,35 @@
+﻿@using AmadoApp.Business.ViewModels.AccountVMs
+@model SubscribeVM
+
+<section>
+    <div class="subscribe">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="left">
+                        <div class="letter">
+                            <i class="fa-solid fa-envelope"></i>
+                            <p>Subscribe to Newsletter</p>
+                        </div>
+                        <div class="box">
+                            <div class="newsletter-form mb-100">
+                                <form method="post">
+                                    <input asp-for="EmailAddress" type="email" class="nl-email" placeholder="Your E-mail" style="width: 700px; height: 50px; border-radius: 5px; padding: 10px;">
+                                    <div asp-validation-summary=All class="mt-2 mb-2"></div>
+                                    <button type="submit" asp-action="Subscription" asp-controller="Account" class="btn btn-success mt-3" style="height: 40px; margin-left: 10px;">Submit</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="sofa-image">
+                        <img src="https://themewagon.github.io/furni/images/sofa.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<hr />

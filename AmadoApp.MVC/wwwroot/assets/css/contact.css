@@ -1,0 +1,287 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  .navbar {
+    background: #3b5d50;
+    padding: 15px;
+    text-align: center;
+  }
+  
+  .navbar a {
+    color: white;
+    text-decoration: none;
+    padding: 15px;
+    display: inline-block;
+  }
+  
+  .navbar a:hover {
+    border-bottom: 4px solid #f9bf29;
+  }
+  
+  .navbar .logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+  }
+  
+  .navbar .menu {
+    display: none;
+    cursor: pointer;
+    font-size: 18px;
+    float: right;
+    color: white;
+  }
+  
+  @media screen and (max-width: 600px) {
+    .navbar a {
+      display: none;
+    }
+  
+    .navbar .menu {
+      display: block;
+    }
+  
+    .navbar.responsive a {
+      display: block;
+      text-align: left;
+    }
+    .navbar {
+      flex-direction: column;
+    }
+    .basket-icon {
+      display: none;
+    }
+  }
+  .basket-icon {
+    font-size: 25px;
+  }
+
+  
+.blog h1 {
+    color: white;
+    font-weight: 600;
+  }
+  .blog p {
+    color: rgba(255, 255, 255, 0.5);
+  }
+  .blog .second {
+    background-color: #3b5d50;
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+  }
+  
+  .blog .second:hover {
+    background-color: #3b5d50;
+    border-color: white;
+  }
+  .blog .first {
+    color: black;
+    background-color: #f9bf29;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+  }
+  .blog {
+    display: flex;
+    background-color: #3b5d50;
+  }
+  .blog img {
+    width: 100%;
+  }
+  .blog .left {
+    margin-top: 100px;
+    margin-left: 30px;
+  }
+  
+  @media screen and (min-width: 1200px) {
+    .blog img {
+      left: 0px;
+      top: -80px;
+      right: -100px;
+    }
+  }
+  @media screen and (max-width: 600px) {
+    .blog {
+      flex-direction: column;
+    }
+    .blog .right {
+      margin-top: 30px;
+    }
+  }
+  
+  * {
+    overflow-x: hidden;
+  }
+  .contact .box{
+    display: flex;
+    gap: 10px;
+
+    
+  }
+  .contact p{
+    width: 200px;
+  }
+  .contact{
+    margin-top: 100px;
+    display: flex;
+    justify-content: center;
+  }
+  .contact i{
+    overflow: hidden;
+    background-color: #3b5d50;
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+  }
+
+  @media (max-width: 768px) {
+    .contact {
+        flex-direction: column;
+    }
+
+    .box {
+        margin: 15px 0;
+    }
+}
+
+.contact-form form{
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+
+ 
+}
+form {
+    display: flex;
+    flex-direction: column;
+   margin-left: 370px;
+}
+
+label {
+    margin-bottom: 8px;
+}
+
+input, textarea {
+    padding: 8px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 50%;
+    
+}
+
+input[type="submit"] {
+    background-color:#3b5d50;
+    color: #fff;
+    cursor: pointer;
+    align-items: center;
+    text-align: center;
+}
+
+
+
+.subscribe .fa-envelope{
+    font-size: 25px;
+    color: gray;
+  }
+  .subscribe .letter{
+    display: flex;
+    gap: 10px;
+  }
+  .letter{
+    margin-left: 20px;
+  }
+  .letter p{
+    font-size: 18px;
+    font-weight: 500;
+    color: #3b5d50;
+  }
+  .subscribe .box{
+    display: flex;
+    gap: 15px;
+  }
+  .inputs {
+  display: flex;
+  border-radius: 12px;
+  
+  }
+  .inputs input{
+    margin-left: 20px;
+    height: 60px;
+  }
+  .subscribe .box i{
+    font-size: 25px;
+    background-color: #3b5d50;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  .sofa-image img{
+    width: 100%;
+  }
+  .subscribe .left{
+    margin-top: 100px;
+  }
+  
+  
+  .footer{
+    display: flex;
+  }
+  .footer h1{
+    color: #3b5d50;
+  }
+  .footer p{
+    color: gray;
+  }
+  .footer .left a{
+    text-decoration: none;
+    color: #3b5d50;
+    background-color: #dce5e4;
+    font-size: 30px;
+    padding: 6px;
+    margin-left: 10px;
+  }
+  .footer .left{
+    width: 300px
+  }
+  .footer .right ul{
+  margin-left: 40px;
+  margin-top: 30px;
+  
+  }
+  .footer ul li{
+    margin-top: 20px;
+  }
+  .footer .right{
+    display: flex;
+  
+  }
+  .footer .social a{ 
+   border-radius: 20px;
+  }
+  .social i{
+    overflow: hidden;
+  }
+  .down{
+    display: flex;
+    justify-content: space-between;
+  }
+  .down ul{
+    display: flex;
+    gap: 10px;
+  }
+  
+  @media screen and (max-width: 600px) {
+  .footer{
+    flex-direction: column;
+  }
+  .footer .right {
+  flex-direction: column;
+  }
+  .parts .part1{
+  margin-left: 20px;
+  }
+    }  
