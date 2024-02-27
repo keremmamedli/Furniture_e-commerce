@@ -26,9 +26,9 @@ namespace AmadoApp.Business.Services.Implementations
                         var mailMessage = new MailMessage()
                         {
                             From = new MailAddress("karamlma@code.edu.az"),
-                            Subject = "Welcome to Diana Website",
+                            Subject = "Welcome to Furni. Website",
                             Body = $"Hello I am from {webUser}" +
-                            $"<p>Welcome to Diana, your ultimate destination for style inspiration and exclusive updates! As a valued subscriber, you're in for a treat. Get ready to elevate your inbox with a curated selection of fashion insights, lifestyle trends, and insider news tailored specifically for you. Delight in early access to our latest collections, limited-time offers, and exclusive promotions, all delivered directly to your inbox. Your preferences matter, and we're committed to providing a personalized experience that matches your unique taste. Join our vibrant community, share your thoughts, and engage with fellow subscribers. Your privacy is important to us, and we ensure the security of your information. Expect surprises – from exciting giveaways to special treats, we love to spoil our subscribers. Get set for a subscription journey filled with elegance, sophistication, and endless style possibilities. Embrace your individuality with Diana, where every newsletter is a celebration of your distinct persona.<p>",
+                            $"<p>Welcome to Furni. , your ultimate destination for style inspiration and exclusive updates! As a valued subscriber, you're in for a treat. Get ready to elevate your inbox with a curated selection of fashion insights, lifestyle trends, and insider news tailored specifically for you. Delight in early access to our latest collections, limited-time offers, and exclusive promotions, all delivered directly to your inbox. Your preferences matter, and we're committed to providing a personalized experience that matches your unique taste. Join our vibrant community, share your thoughts, and engage with fellow subscribers. Your privacy is important to us, and we ensure the security of your information. Expect surprises – from exciting giveaways to special treats, we love to spoil our subscribers. Get set for a subscription journey filled with elegance, sophistication, and endless style possibilities. Embrace your individuality with Diana, where every newsletter is a celebration of your distinct persona.<p>",
                             IsBodyHtml = true
                         };
 
@@ -47,14 +47,14 @@ namespace AmadoApp.Business.Services.Implementations
                         var mailMessage = new MailMessage()
                         {
                             From = new MailAddress("karamlma@code.edu.az"),
-                            Subject = "Welcome to Diana Website",
+                            Subject = "Welcome to Furni. Website",
                             Body = $"Hello I am from {webUser} :D" +
                             $"<p>" +
                             $"Hello and have a good time\r\n" +
-                            $"I hope you are having a good day. As the Amado group, " +
+                            $"I hope you are having a good day. As the Furni. group, " +
                             $"we would like to inform you about a new product added to our website. " +
                             $"If you want to browse that product, you can visit the website.\r\n" +
-                            $"Amado wishes you a nice day" +
+                            $"Furni. wishes you a nice day" +
                             $"<p>",
                             IsBodyHtml = true
                         };

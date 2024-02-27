@@ -1,50 +1,43 @@
-using AmadoApp.Business.Extensions;
+using AmadoApp.Business.Services;
 using AmadoApp.Core.Entities.Account;
 using AmadoApp.DAL.Context;
-using Microsoft.AspNetCore.Builder;
+using AmadoApp.DAL.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace AmadoApp.MVC
 {
-
     public class Program
     {
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Servisleri konteynere ekle.
+            // Add services to the container.
             builder.Services.AddRepositories();
-            builder.Services.AddServices(); // AddServices() uzant? yöntemini ça??r?n.
+            builder.Services.AddServices();
 
             builder.Services.AddControllersWithViews();
             builder.Services.AddDbContext<AppDbContext>(opt =>
             {
                 opt.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
             });
-
-            // ASP.NET Core Kimlik do?rulamas?n? yap?land?r?n.
             builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
             {
-                // Parola ayarlar?.
+                // Password settings.
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequiredLength = 8;
-
-                // Kilitlenme ayarlar?.
+                // Lockout settings.
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
                 options.Lockout.MaxFailedAccessAttempts = 5;
                 options.Lockout.AllowedForNewUsers = true;
-
-                // Kullan?c? ayarlar?.
+                // User settings.
                 options.User.AllowedUserNameCharacters =
                 "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
                 options.User.RequireUniqueEmail = false;
             }).AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
 
-            // Uygulama çerez ayarlar?n? yap?land?r?n.
             builder.Services.ConfigureApplicationCookie(options =>
             {
                 options.AccessDeniedPath = "/Home/AccessDeniedCustom";
@@ -54,7 +47,7 @@ namespace AmadoApp.MVC
 
             var app = builder.Build();
 
-            // HTTP istek hatt?n? yap?land?r?n.
+            // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
@@ -69,7 +62,7 @@ namespace AmadoApp.MVC
             app.MapControllerRoute(
                 name: "areas",
                 pattern: "{area:exists}/{controller=Admin}/{action=Index}/{id?}"
-            );
+                );
 
             app.MapControllerRoute(
                 name: "default",

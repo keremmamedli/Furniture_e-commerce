@@ -137,7 +137,7 @@ namespace AmadoApp.Business.Services.Implementations
                     }
                 }
 
-                await _userManager.AddToRoleAsync(newUser, UserRoles.Admin.ToString());
+                await _userManager.AddToRoleAsync(newUser, UserRoles.Member.ToString());
 
                 return await SendConfirmEmailAddress(newUser);
             }

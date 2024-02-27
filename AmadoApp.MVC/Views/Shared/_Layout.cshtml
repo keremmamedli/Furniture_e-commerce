@@ -13,10 +13,12 @@
         <div class="navbar" id="myNavbar">
             <span class="logo">Furni.</span>
             <span class="@(Context.Request.Path == "/" ? "active" : "")"><a asp-action="Index" asp-controller="Home">Home</a></span>
-            <span class="@(Context.Request.Path == "/Shop/ShopList" ? "active" : "")"><a asp-action="ShopList" asp-controller="Shop">Shop</a></span>
-            <span class="@(Context.Request.Path == "/About/AboutView" ? "active" : "")"><a asp-action="AboutView" asp-controller="About">About</a></span>
-            <span class="@(Context.Request.Path == "/Services/ServicesView" ? "active" : "")"><a asp-action="ServicesView" asp-controller="Services">Services</a></span>
-            <span class="@(Context.Request.Path == "/Blog/BlogView" ? "active" : "")"><a asp-action="BlogView" asp-controller="Blog">Blog</a></span>
+            @*<span class="@(Context.Request.Path == "/ShopPage/Index" ? "active" : "")"><a asp-action="Index" asp-controller="ShopPage">Shop</a></span>*@
+
+            <a asp-action="Index" asp-controller="ShopPage">Shop</a>
+            <a asp-action="Index" asp-controller="About">About</a>
+            <a asp-action="Index" asp-controller="Services">Service</a>
+            <a asp-action="Index" asp-controller="Blog">Blog</a>
             @if (!User.Identity.IsAuthenticated)
             {
                 <span class="nav-item"><a asp-action="Login" asp-controller="Account">Login</a></span>
@@ -152,6 +154,10 @@
         </div>
     </footer>
 
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="/assets/js/jquery/jquery-2.2.4.min.js"></script>
     <script src="/assets/js/popper.min.js"></script>
     <script src="/assets/js/bootstrap.min.js"></script>
