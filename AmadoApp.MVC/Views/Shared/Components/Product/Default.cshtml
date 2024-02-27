@@ -42,7 +42,8 @@ else
                 <div class="product-img">
                     <img src="~/Upload/ProductImages/@item.ProductImages.FirstOrDefault().ImageUrl" alt="">
                     <!-- Hover Thumb -->
-                    <img class="hover-img" src="~/Upload/ProductImages/@item.ProductImages.Skip(1).FirstOrDefault().ImageUrl" alt="">
+
+                    <img class="hover-img" src="~/Upload/ProductImages/@(item.ProductImages.Count>1 ? item.ProductImages.Skip(1).FirstOrDefault().ImageUrl : item.ProductImages.FirstOrDefault().ImageUrl)" alt="">
 
                 </div>
 
