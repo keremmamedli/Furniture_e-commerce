@@ -1,206 +1,53 @@
-﻿@using AmadoApp.Core.Entities
-
-<!-- Product Details Area Start -->
-<div class="single-product-area section-padding-100 clearfix">
-    <div class="container-fluid">
-
-        <div class="row">
-            <div class="col-12">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb mt-50">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item"><a href="#">Furniture</a></li>
-                        <li class="breadcrumb-item"><a href="#">Chairs</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">@((ViewData["Product"] as Product).Title)</li>
-                    </ol>
-                </nav>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-12 col-lg-7">
-                <div class="single_product_thumb">
-                    <div id="product_details_slider" class="carousel slide" data-ride="carousel">
-                        <ol class="carousel-indicators">
-                            
-                            <li class="active" data-target="#product_details_slider" 
-                            data-slide-to="0" 
-                            style="background-image: url(/Upload/ProductImages/@((ViewData["Product"] as Product).ProductImages.FirstOrDefault().ImageUrl));">
-                            </li>
-
-                            @{
-                                var count = 0;
-                            }
-
-                            @foreach (var item in (ViewData["Product"] as Product).ProductImages.Skip(1))
-                            {
-                                count++;
-                                <li data-target="#product_details_slider" data-slide-to="@count" 
-                                style="background-image: url(/Upload/ProductImages/@item.ImageUrl);">
-                                </li>
-                            }
-                        </ol>
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <a class="gallery_img" href="~/Upload/ProductImages/@((ViewData["Product"] as Product).ProductImages.FirstOrDefault().ImageUrl)">
-                                    <img class="d-block w-100" src="~/Upload/ProductImages/@((ViewData["Product"] as Product).ProductImages.FirstOrDefault().ImageUrl)" alt="First slide">
-                                </a>
-                            </div>
-
-                            @foreach (var item in (ViewData["Product"] as Product).ProductImages.Skip(1))
-                            {
-                                <div class="carousel-item">
-                                    <a class="gallery_img" href="~/Upload/ProductImages/@item.ImageUrl">
-                                        <img class="d-block w-100" src="~/Upload/ProductImages/@item.ImageUrl" alt="First slide">
-                                    </a>
-                                </div>
-                            }
-                        </div>
+﻿<link href="~/assets/css/SingleProduct.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet">
+@using AmadoApp.Core.Entities
+<div class="container">
+    <div class="card">
+        <div class="container-fliud">
+            <div class="wrapper row">
+                <div class="preview col-md-6">
+                    <div class="preview-pic tab-content">
+                        <div class="tab-pane active" id="pic-1"><img src="http://placekitten.com/400/252" /></div>
+                        <div class="tab-pane" id="pic-2"><img src="http://placekitten.com/400/252" /></div>
+                        <div class="tab-pane" id="pic-3"><img src="http://placekitten.com/400/252" /></div>
+                        <div class="tab-pane" id="pic-4"><img src="http://placekitten.com/400/252" /></div>
+                        <div class="tab-pane" id="pic-5"><img src="http://placekitten.com/400/252" /></div>
                     </div>
+                    <ul class="preview-thumbnail nav nav-tabs">
+                        <li class="active"><a data-target="#pic-1" data-toggle="tab"><img src="http://placekitten.com/200/126" /></a></li>
+                        <li><a data-target="#pic-2" data-toggle="tab"><img src="http://placekitten.com/200/126" /></a></li>
+                        <li><a data-target="#pic-3" data-toggle="tab"><img src="http://placekitten.com/200/126" /></a></li>
+                        <li><a data-target="#pic-4" data-toggle="tab"><img src="http://placekitten.com/200/126" /></a></li>
+                        <li><a data-target="#pic-5" data-toggle="tab"><img src="http://placekitten.com/200/126" /></a></li>
+                    </ul>
                 </div>
-            </div>
-            <div class="col-12 col-lg-5">
-                <div class="single_product_desc">
-                    <!-- Product Meta Data -->
-                    <div class="product-meta-data">
-                        <div class="line"></div>
-                        <p class="product-price">$@((ViewData["Product"] as Product).Price)</p>
-                        <a href="product-details.html">
-                            <h6>@((ViewData["Product"] as Product).Title)</h6>
-                        </a>
-                        <!-- Ratings & Review -->
-                        <div class="ratings-review mb-15 d-flex align-items-center justify-content-between">
-                            <div class="ratings">
-                                <i class="fa fa-star" aria-hidden="true"></i>
-                                <i class="fa fa-star" aria-hidden="true"></i>
-                                <i class="fa fa-star" aria-hidden="true"></i>
-                                <i class="fa fa-star" aria-hidden="true"></i>
-                                <i class="fa fa-star" aria-hidden="true"></i>
-                            </div>
-                            <div class="review">
-                                <a href="#">Write A Review</a>
-                            </div>
-                        </div>
-                        <!-- Avaiable -->
+                <div class="details col-md-6">
+                    <h3 class="product-title">@((ViewData["Product"] as Product).Title)</h3>
+                    <p class="product-description">@((ViewData["Product"] as Product).Description)</p>
+                    <h4 class="price">current price: <span>@((ViewData["Product"] as Product).Price)</span></h4>
+                    <h5 class="sizes">
+                        In Stock:
                         @if ((ViewData["Product"] as Product).IsInStock)
                         {
-                            <p class="avaibility"><i class="fa fa-circle" style="color:green;"></i> In Stock</p>
+                            <span class="size" data-toggle="tooltip" title="small"><i class="fa fa-check" aria-hidden="true"></i></span>
                         }
                         else
                         {
-                            <p class="avaibility"><i class="fa fa-circle" style="color:red;"></i> Out of Stock</p>
+                            <span class="size" data-toggle="tooltip" title="small"><i class="fa fa-close"></i></span>
                         }
+                    </h5>
+                    <h5 class="colors">
+                        colors:
+                        @foreach (var color in (ViewData["Product"] as Product).ProductColors)
+                        {
+                            <span class="size" data-toggle="tooltip" title="small">@color</span>
+                        }
+                    </h5>
+                    <div class="action">
+                        <button class="add-to-cart btn btn-default" type="button">add to cart</button>
                     </div>
-
-                    <h6 class="mt-3"> Brand:</h6>
-                    <div class="short_overview">
-                        <p>@((ViewData["Product"] as Product).Brand.Name)</p>
-                    </div>
-                    <h6 class="mt-2"> Categories: </h6>
-                    <div class="short_overview">
-                        <p>@String.Join(", ", (ViewData["Product"] as Product).ProductCategories.Select(x => x.Category.Name).ToList())</p>
-                    </div>
-
-                    <!-- ##### Single Widget ##### -->
-                    <div class="widget color mt-3">
-
-                        <div class="widget-desc">
-                            <h5>Colors</h5>
-                            <ul>
-                                @foreach (var item in (ViewData["Product"] as Product).ProductColors)
-                                {
-                                    @switch (@item.Color.Name)
-                                    {
-                                        case "White":
-                                            <li >
-                                                <a class="color1"></a>
-                                            </li>
-                                            break;
-                                        case "Black":
-                                            <li >
-                                                <a class="color3"></a>
-                                            </li>
-                                            break;
-                                        case "Yellow":
-                                            <li>
-                                                <a class="color6"></a>
-                                            </li>
-                                            break;
-                                        case "Blue":
-                                            <li>
-                                                <a class="color4"></a>
-                                            </li>
-                                            break;
-                                        case "Orange":
-                                            <li>
-                                                <a class="color7"></a>
-                                            </li>
-                                            break;
-                                        case "Red":
-                                            <li>
-                                                <a class="color5"></a>
-                                            </li>
-                                            break;
-                                    }
-                                }
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="short_overview my-5">
-                        <p>@((ViewData["Product"] as Product).Description)</p>
-                    </div>
-
-                    <!-- Add to Cart Form -->
-                    <form class="cart clearfix" method="post">
-                        <div class="cart-btn d-flex mb-50">
-                            <p>Qty</p>
-                            <div class="quantity">
-                                <span class="qty-minus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;"><i class="fa fa-caret-down" aria-hidden="true"></i></span>
-                                <input type="number" class="qty-text" id="qty" step="1" min="1" max="300" name="quantity" value="1">
-                                <span class="qty-plus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;"><i class="fa fa-caret-up" aria-hidden="true"></i></span>
-                            </div>
-                        </div>
-                        <button type="submit" name="addtocart" value="5" class="btn amado-btn">Add to cart</button>
-                    </form>
-
                 </div>
             </div>
         </div>
     </div>
 </div>
-<!-- Product Details Area End -->
-
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        var colorOptions = document.querySelectorAll('.carousel .slide ol li');
-
-        colorOptions.forEach(function (option) {
-            option.addEventListener('click', function (event) {
-                event.preventDefault();
-
-                colorOptions.forEach(function (opt) {
-                    opt.classList.remove('active');
-                });
-
-                option.classList.add('active');
-            });
-        });
-    });
-
-    document.addEventListener("DOMContentLoaded", function () {
-        var colorOptions = document.querySelectorAll('.carousel-inner .carousel-item');
-
-        colorOptions.forEach(function (option) {
-            option.addEventListener('click', function (event) {
-                event.preventDefault();
-
-                colorOptions.forEach(function (opt) {
-                    opt.classList.remove('active');
-                });
-
-                option.classList.add('active');
-            });
-        });
-    });
-</script>
