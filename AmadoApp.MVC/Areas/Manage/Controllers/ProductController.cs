@@ -7,6 +7,10 @@ using AmadoApp.DAL.Repositories.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using PagedList;
+using PagedList.Mvc;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace AmadoApp.MVC.Areas.Manage.Controllers
 {
@@ -31,22 +35,24 @@ namespace AmadoApp.MVC.Areas.Manage.Controllers
 
         [HttpGet]
         [Authorize(Roles = "Moderator, Admin")]
-        public async Task<IActionResult> Table()
+        public async Task<IActionResult> Table(int? page)
         {
+            IQueryable<Product> products;
+
             if (User.IsInRole("Admin"))
             {
-                IQueryable<Product> products = await _ProductService.ReadAsync();
-
-                return View(products);
+                products = await _ProductService.ReadAsync();
             }
             else
             {
-                IQueryable<Product> products = (await _ProductService.ReadAsync()).Where(x => !x.IsDeleted);
-
-                return View(products);
+                products = (await _ProductService.ReadAsync()).Where(x => !x.IsDeleted);
             }
-        }
 
+            int pageSize = 4; // Sayfa başına ürün sayısı
+            int pageNumber = page ?? 1;
+
+            return View(products.ToPagedList(pageNumber, pageSize));
+        }
         [HttpGet]
         [Authorize(Roles = "Moderator, Admin")]
         public async Task<IActionResult> Detail(int id)

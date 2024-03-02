@@ -1,9 +1,10 @@
 ﻿@using AmadoApp.Core.Entities
-@model IQueryable<Product>
+@using PagedList
 
-<!-- Page Heading -->
+@model IPagedList<Product>
+
 <h1 class="h3 mb-2 text-gray-800">Product Table</h1>
-<!-- DataTales Example -->
+
 <div class="card shadow mb-4">
     <div class="card-header py-3">
         <a asp-action="Create" asp-controller="Product" class="btn btn-primary mt-4 mb-4"> Create </a>
@@ -27,29 +28,13 @@
                         <th>CRUD</th>
                     </tr>
                 </thead>
-                <tfoot>
-                    <tr>
-                        <th>N#</th>
-                        <th>Title</th>
-                        <th>Description</th>
-                        <th>Price</th>
-                        <th>Brand</th>
-                        <th>Is in Stock</th>
-                        <th>Product Image</th>
-                        <th>Categories</th>
-                        <th>Colors</th>
-                        <th>Created Date</th>
-                        <th>Update Date</th>
-                        <th>CRUD</th>
-                    </tr>
-                </tfoot>
                 <tbody>
                     @{
-                        var count = 0;
+                        var count = (Model.PageNumber - 1) * Model.PageSize;
                         foreach (var item in Model)
                         {
                             count++;
-                            if (item.IsDeleted == true)
+                            if (item.IsDeleted)
                             {
                                 <tr style="color: red">
                                     <th>@count</th>
@@ -63,12 +48,8 @@
                                             <img width="100%" src="~/Upload/ProductImages/@item.ProductImages.FirstOrDefault()?.ImageUrl">
                                         </div>
                                     </th>
-                                    <th>
-                                        @String.Join(", ", item.ProductCategories.Select(x => x.Category.Name).ToList())
-                                    </th>
-                                    <th>
-                                        @String.Join(", ", item.ProductColors.Select(x => x.Color.Name).ToList())
-                                    </th>
+                                    <th>@String.Join(", ", item.ProductCategories.Select(x => x.Category.Name).ToList())</th>
+                                    <th>@String.Join(", ", item.ProductColors.Select(x => x.Color.Name).ToList())</th>
                                     <th>@item.CreatedDate.ToString("hh:mm dd/MM/yyyy")</th>
                                     <th>@item.UpdatedDate.ToString("hh:mm dd/MM/yyyy")</th>
                                     <th>
@@ -93,38 +74,56 @@
                                             <img width="100%" src="~/Upload/ProductImages/@item.ProductImages.FirstOrDefault()?.ImageUrl">
                                         </div>
                                     </th>
-                                    <th>
-                                        @String.Join(", ", item.ProductCategories.Select(x => x.Category.Name).ToList())
-                                    </th>
-                                    <th>
-                                        @String.Join(", ", item.ProductColors.Select(x => x.Color.Name).ToList())
-                                    </th>
+                                    <th>@String.Join(", ", item.ProductCategories.Select(x => x.Category.Name).ToList())</th>
+                                    <th>@String.Join(", ", item.ProductColors.Select(x => x.Color.Name).ToList())</th>
                                     <th>@item.CreatedDate.ToString("hh:mm dd/MM/yyyy")</th>
                                     <th>@item.UpdatedDate.ToString("hh:mm dd/MM/yyyy")</th>
-                                    @if (User.IsInRole("Moderator"))
-                                    {
-                                        <th>
+                                    <th>
+                                        @if (User.IsInRole("Moderator"))
+                                        {
                                             <a asp-action="Detail" asp-controller="Product" asp-route-id="@item.Id" class="btn btn-info">Detail</a>
                                             <a asp-action="Delete" asp-controller="Product" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
-                                        </th>
-                                    }
-                                    else
-                                    {
-                                        <th>
+                                        }
+                                        else
+                                        {
                                             <a asp-action="Update" asp-controller="Product" asp-route-id="@item.Id" class="btn btn-warning">Update</a>
                                             <a asp-action="Detail" asp-controller="Product" asp-route-id="@item.Id" class="btn btn-info">Detail</a>
                                             <a asp-action="Delete" asp-controller="Product" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
-                                        </th>
-                                    }
+                                        }
+                                    </th>
                                 </tr>
                             }
-                            
                         }
                     }
                 </tbody>
             </table>
         </div>
     </div>
-
-    <div class="mt-4 mb-4" asp-validation-summary=All></div>
+    <div class="mt-4 mb-4 d-flex justify-content-center">
+        @if (Model.PageCount > 1)
+        {
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    @if (Model.HasPreviousPage)
+                    {
+                        <li class="page-item">
+                            <a class="page-link" href="@Url.Action("Table", new { page = Model.PageNumber - 1 })">Previous</a>
+                        </li>
+                    }
+                    @for (int i = 1; i <= Model.PageCount; i++)
+                    {
+                        <li class="page-item @(i == Model.PageNumber ? "active" : "")">
+                            <a class="page-link" href="@Url.Action("Table", new { page = i })">@i</a>
+                        </li>
+                    }
+                    @if (Model.HasNextPage)
+                    {
+                        <li class="page-item">
+                            <a class="page-link" href="@Url.Action("Table", new { page = Model.PageNumber + 1 })">Next</a>
+                        </li>
+                    }
+                </ul>
+            </nav>
+        }
+    </div>
 </div>
