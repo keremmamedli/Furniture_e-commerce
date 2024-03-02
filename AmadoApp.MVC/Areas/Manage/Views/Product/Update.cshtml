@@ -1,8 +1,11 @@
 ﻿@using AmadoApp.Business.ViewModels.ProductVMs
 @using AmadoApp.Core.Entities
 @model UpdateProductVM
-
-
+@{
+    var brandsList = Model.Brands.ToList(); // IQueryable koleksiyonunu List'e dönüştür
+    var categoriesList = Model.Categories.ToList(); // IQueryable koleksiyonunu List'e dönüştür
+    var colorsList = Model.Colors.ToList(); // IQueryable koleksiyonunu List'e dönüştür
+}
 <div class="container">
     <h4 class="mb-5">Category Create</h4>
     <form method="post" enctype="multipart/form-data">
@@ -25,20 +28,22 @@
                 <tr>
                     <td style="border: 1px solid black">
                         <label asp-for="BrandId" class="form-label">Product Brand</label>
-                        <select asp-for="BrandId" asp-items="new SelectList(Model.Brands, nameof(Brand.Id), nameof(Brand.Name))" class="form-select mx-3">
-                            <option value="null">Choose Brand</option>
+                        <select asp-for="BrandId" asp-items="new SelectList(brandsList, nameof(Brand.Id), nameof(Brand.Name))" class="form-select mx-3">
+                            
                         </select>
                     </td>
                     <td style="border: 1px solid black">
                         <label asp-for="ColorIds" class="form-label">Product Colors</label>
                         <br />
-                        <select asp-for="ColorIds" asp-items="new SelectList(Model.Colors, nameof(Color.Id), nameof(Color.Name))" class="form-select mx-3">
+                        <select asp-for="ColorIds" asp-items="new SelectList(colorsList, nameof(Color.Id), nameof(Color.Name))" class="form-select mx-3">
+                            
                         </select>
                     </td>
                     <td style="border: 1px solid black">
                         <label asp-for="CategoryIds" class="form-label">Product Categories</label>
                         <br />
-                        <select asp-for="CategoryIds" asp-items="new SelectList(Model.Categories, nameof(Category.Id), nameof(Category.Name))" class="form-select mx-3">
+                        <select asp-for="CategoryIds" asp-items="new SelectList(categoriesList, nameof(Category.Id), nameof(Category.Name))" class="form-select mx-3">
+                            
                         </select>
                     </td>
                 </tr>
@@ -96,4 +101,19 @@
         });
     });
 
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var priceInput = document.getElementById('Price');
+
+        priceInput.addEventListener('input', function () {
+            var priceValue = parseFloat(priceInput.value);
+
+            if (priceValue < 0) {
+                priceInput.setCustomValidity('Price cannot be less than zero.');
+            } else {
+                priceInput.setCustomValidity('');
+            }
+        });
+    });
 </script>
