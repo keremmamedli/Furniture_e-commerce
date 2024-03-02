@@ -1,4 +1,6 @@
 using AmadoApp.Business.Services;
+using AmadoApp.Business.Services.Implementations;
+using AmadoApp.Business.Services.Interfaces;
 using AmadoApp.Core.Entities.Account;
 using AmadoApp.DAL.Context;
 using AmadoApp.DAL.Repositories;
@@ -32,11 +34,10 @@ namespace AmadoApp.MVC
                 options.Lockout.MaxFailedAccessAttempts = 5;
                 options.Lockout.AllowedForNewUsers = true;
                 // User settings.
-                options.User.AllowedUserNameCharacters =
-                "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+                options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
                 options.User.RequireUniqueEmail = false;
             }).AddEntityFrameworkStores<AppDbContext>()
-                .AddDefaultTokenProviders();
+            .AddDefaultTokenProviders();
 
             builder.Services.ConfigureApplicationCookie(options =>
             {
@@ -44,6 +45,9 @@ namespace AmadoApp.MVC
             });
 
             builder.Services.AddAuthentication().AddCookie();
+
+            // Register the IColorService interface with its implementation
+            builder.Services.AddScoped<IColorService, ColorService>();
 
             var app = builder.Build();
 
@@ -62,11 +66,12 @@ namespace AmadoApp.MVC
             app.MapControllerRoute(
                 name: "areas",
                 pattern: "{area:exists}/{controller=Admin}/{action=Index}/{id?}"
-                );
+            );
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Home}/{action=Index}/{id?}"
+            );
 
             app.Run();
         }
