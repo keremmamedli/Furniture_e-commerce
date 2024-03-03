@@ -2,9 +2,12 @@
 using AmadoApp.Business.Services.Implementations;
 using AmadoApp.Business.Services.Interfaces;
 using AmadoApp.Business.ViewModels.CategoryVMs;
+using AmadoApp.Business.ViewModels.PageVMs;
 using AmadoApp.Core.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace AmadoApp.MVC.Areas.Manage.Controllers
 {
@@ -20,19 +23,43 @@ namespace AmadoApp.MVC.Areas.Manage.Controllers
 
         [HttpGet]
         [Authorize(Roles = "Moderator, Admin")]
-        public async Task<IActionResult> Table()
+        public async Task<IActionResult> Table(int page = 1)
         {
+            IQueryable<Category> query = await _CategoryService.ReadAsync();
+            int pageSize = 4;
+
+            int totalItems = query.Count();
+            int totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
+
+            var categories = query.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
             if (User.IsInRole("Admin"))
             {
-                IQueryable<Category> categories = await _CategoryService.ReadAsync();
+                var homeVM = new HomeVM
+                {
+                    Categories = categories,
+                    PageIndex = page,
+                    TotalPages = totalPages,
+                    Action = "ShopList",
+                    Controller = "Shop",
+                    PageSize = pageSize,
+                };
 
-                return View(categories);
+                return View(homeVM);
             }
             else
             {
-                IQueryable<Category> categories = (await _CategoryService.ReadAsync()).Where(x => !x.IsDeleted);
+                var homeVM = new HomeVM
+                {
+                    Categories = categories.Where(x => !x.IsDeleted).ToList(),
+                    PageIndex = page,
+                    TotalPages = totalPages,
+                    Action = "ShopList",
+                    Controller = "Shop",
+                    PageSize = pageSize,
+                };
 
-                return View(categories);
+                return View(homeVM);
             }
         }
 

@@ -3,9 +3,12 @@ using AmadoApp.Business.Services.Implementations;
 using AmadoApp.Business.Services.Interfaces;
 using AmadoApp.Business.ViewModels.CategoryVMs;
 using AmadoApp.Business.ViewModels.ColorVMs;
+using AmadoApp.Business.ViewModels.PageVMs;
 using AmadoApp.Core.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace AmadoApp.MVC.Areas.Manage.Controllers
 {
@@ -21,19 +24,43 @@ namespace AmadoApp.MVC.Areas.Manage.Controllers
 
         [HttpGet]
         [Authorize(Roles = "Moderator, Admin")]
-        public async Task<IActionResult> Table()
+        public async Task<IActionResult> Table(int page = 1)
         {
+
+            IQueryable<Color> query = await _ColorService.ReadAsync();
+            int pageSize = 4;
+
+            int totalItems = query.Count();
+            int totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
+
+            var colors = query.Skip((page - 1) * pageSize).Take(pageSize).ToList();
             if (User.IsInRole("Admin"))
             {
-                IQueryable<Color> colors = await _ColorService.ReadAsync();
+                var homeVM = new HomeVM
+                {
+                    Colors = colors,
+                    PageIndex = page,
+                    TotalPages = totalPages,
+                    Action = "ShopList",
+                    Controller = "Shop",
+                    PageSize = pageSize,
+                };
 
-                return View(colors);
+                return View(homeVM);
             }
             else
             {
-                IQueryable<Color> colors = (await _ColorService.ReadAsync()).Where(x => !x.IsDeleted);
+                var homeVM = new HomeVM
+                {
+                    Colors = colors.Where(x => !x.IsDeleted).ToList(),
+                    PageIndex = page,
+                    TotalPages = totalPages,
+                    Action = "ShopList",
+                    Controller = "Shop",
+                    PageSize = pageSize,
+                };
 
-                return View(colors);
+                return View(homeVM);
             }
         }
 

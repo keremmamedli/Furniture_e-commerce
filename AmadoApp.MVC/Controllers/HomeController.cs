@@ -22,6 +22,10 @@ namespace AmadoApp.MVC.Controllers
         {
             return View();
         }
-
+        public IActionResult ErrorPage()
+        {
+            // ERR_CACHE_MISS hatası olduğunda Index sayfasına yönlendir
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

@@ -24,7 +24,7 @@ namespace AmadoApp.MVC.Areas.Manage.Controllers
         public async Task<IActionResult> Table(int page = 1)
         {
             IQueryable<Brand> query = await _BrandService.ReadAsync();
-            int pageSize = 1;
+            int pageSize = 4;
 
             int totalItems = query.Count();
             int totalPages = (int)Math.Ceiling((double)totalItems / pageSize);

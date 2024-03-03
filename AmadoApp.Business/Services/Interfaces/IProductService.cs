@@ -11,7 +11,7 @@ namespace AmadoApp.Business.Services.Interfaces
 	public interface IProductService
 	{
 		Task<IQueryable<Product>> ReadAsync();
-		Task<List<Product>> GetAllBySearchAsync(string? minValue, string? maxValue, string? order, string? search,string? brand);
+		Task<List<Product>> GetAllBySearchAsync(string? minValue, string? maxValue, string? order, string? search,string? brand,string? category,string? color);
         Task<Product> ReadIdAsync(int Id);
 		Task CreateAsync(CreateProductVM entity, string env);
 		Task UpdateAsync(UpdateProductVM entity, string env);

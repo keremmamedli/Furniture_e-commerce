@@ -13,12 +13,14 @@ namespace AmadoApp.MVC.Controllers
         private readonly IProductService _productService;
         private readonly ICategoryService _categoryService;
         private readonly IBrandService _brandService;
+        private readonly IColorService _colorService;
 
-        public ShopController(IProductService productService, ICategoryService categoryService, IBrandService brandService)
+        public ShopController(IProductService productService, ICategoryService categoryService, IBrandService brandService, IColorService colorService)
         {
             _productService = productService;
             _categoryService = categoryService;
             _brandService = brandService;
+            _colorService = colorService;
         }
 
         [HttpGet]
@@ -35,16 +37,19 @@ namespace AmadoApp.MVC.Controllers
 
             var categories = (await _categoryService.ReadAsync()).ToList();
             var brands = (await _brandService.ReadAsync()).ToList();
+            var colors = (await _colorService.ReadAsync()).ToList();
 
             var homeVM = new HomeVM
             {
-                Products = products.ToList(),
+                Products = products,
                 PageIndex = page,
                 TotalPages = totalPages,
                 Action = "ShopList",
                 Controller = "Shop",
                 PageSize = pageSize,
-                Brands = brands
+                Brands = brands,
+                Categories = categories,
+                Colors = colors // Renkleri burada atayın
             };
 
             return View(homeVM);
@@ -53,7 +58,7 @@ namespace AmadoApp.MVC.Controllers
         [HttpPost]
         public async Task<IActionResult> ShopList(HomeVM vm, int page = 1)
         {
-            var products = await _productService.GetAllBySearchAsync(vm.SearchVM.MinValue, vm.SearchVM.MaxValue, vm.SearchVM.Filter, vm.SearchVM.Search,vm.SearchVM.Brand);
+            var products = await _productService.GetAllBySearchAsync(vm.SearchVM.MinValue, vm.SearchVM.MaxValue, vm.SearchVM.Filter, vm.SearchVM.Search, vm.SearchVM.Brand, vm.SearchVM.Category,vm.SearchVM.Color);
 
             int pageSize = 8;
 
@@ -63,10 +68,11 @@ namespace AmadoApp.MVC.Controllers
 
             var filteredProducts = products.Skip((page - 1) * pageSize).Take(pageSize).ToList();
 
-            var categories = (await _categoryService.ReadAsync()).ToList();
+            var categories = (await _categoryService.ReadAsync()).ToList(); // Fetch categories
             var brands = (await _brandService.ReadAsync()).ToList();
+            var colors = (await _colorService.ReadAsync()).ToList();
 
-            
+
 
             var homeVM = new HomeVM
             {
@@ -76,12 +82,13 @@ namespace AmadoApp.MVC.Controllers
                 Action = "ShopList",
                 Controller = "Shop",
                 PageSize = pageSize,
-                Brands = brands
+                Brands = brands,
+                Categories = categories,
+                Colors = colors // Renkleri burada atayın
             };
 
             return View(homeVM);
         }
-
 
 
         public async Task<IActionResult> ProductSingle(int id)

@@ -41,7 +41,7 @@ namespace AmadoApp.Business.Services.Implementations
             "ProductImages", 
         };
 
-        public async Task<List<Product>> GetAllBySearchAsync(string? minValue, string? maxValue, string? order, string? search,string? brand)
+        public async Task<List<Product>> GetAllBySearchAsync(string? minValue, string? maxValue, string? order, string? search, string? brand, string? category, string? color)
         {
             IQueryable<Product> query = await ReadAsync();
 
@@ -59,13 +59,26 @@ namespace AmadoApp.Business.Services.Implementations
 
             if (!string.IsNullOrEmpty(search))
             {
-                search = search.Trim().ToLower(); 
-                query = query.Where(e => e.Title.ToLower().Contains(search)); 
+                search = search.Trim().ToLower();
+                query = query.Where(e => e.Title.ToLower().Contains(search));
             }
+
             if (!string.IsNullOrEmpty(brand))
             {
                 brand = brand.Trim().ToLower();
                 query = query.Where(e => e.Brand.Name.ToLower().Contains(brand));
+            }
+
+            if (!string.IsNullOrEmpty(category))
+            {
+                category = category.Trim().ToLower();
+                query = query.Where(e => e.ProductCategories.Any(pc => pc.Category.Name.ToLower() == category));
+            }
+
+            if (!string.IsNullOrEmpty(color))
+            {
+                color = color.Trim().ToLower();
+                query = query.Where(e => e.ProductColors.Any(pc => pc.Color.Name.ToLower() == color));
             }
 
             if (!string.IsNullOrEmpty(order))

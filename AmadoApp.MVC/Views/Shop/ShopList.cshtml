@@ -1,174 +1,245 @@
 ﻿@using AmadoApp.Business.ViewModels.PageVMs;
 @model HomeVM
+<link rel="stylesheet" href="~/assets/css/animationforfilter.css"/>
 <div class="shop_sidebar_area">
-    <section class="blogImage mb-5">
-        <div class="blog">
-            <div class="left">
-                <h1>Shop</h1>
-            </div>
-        </div>
-    </section>
-    <div class="container-fluid">
-        <div class="row">
-            <!-- Filter Section -->
-            <aside class="col-md-3">
-                <div class="card" style="margin-top: 4.8rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">Filter Products</h5>
-                        <button class="btn btn-primary" onclick="toggleForm()">Toggle Filters</button>
-                        <form asp-action="ShopList" asp-controller="Shop" method="post" id="priceFilterForm" style="display: none;">
-                            <div class="form-row mt-3">
-                                <div class="col-md-12">
-                                    <div class="input-group">
-                                        <span class="input-group-text">$</span>
-                                        <input type="number" class="form-control" placeholder="Min Price" asp-for="SearchVM.MinValue" id="minPrice">
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="input-group">
-                                        <span class="input-group-text">$</span>
-                                        <input type="number" class="form-control" placeholder="Max Price" asp-for="SearchVM.MaxValue" id="maxPrice">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-row mt-3 ">
-                                <div class="col-md-6">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" asp-for="SearchVM.Filter" value="ProductName" id="productNameFilter">
-                                        <label class="form-check-label" for="productNameFilter">
-                                            Product Name
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" asp-for="SearchVM.Filter" value="LowToHigh" id="lowToHighFilter">
-                                        <label class="form-check-label" for="lowToHighFilter">
-                                            Low to High
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" asp-for="SearchVM.Filter" value="HighToLow" id="highToLowFilter">
-                                        <label class="form-check-label" for="highToLowFilter">
-                                            High to Low
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" asp-for="SearchVM.Filter" value="Featured" id="featuredFilter">
-                                        <label class="form-check-label" for="featuredFilter">
-                                            Featured
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-row mt-3">
-                                <div class="col-md-12">
-                                    <select asp-for="SearchVM.Brand" class="form-control">
-                                        <option value="null">Choose Brand</option>
-                                        @foreach (var brand in Model.Brands)
-                                        {
-                                            <option value="@brand.Name">@brand.Name</option>
-                                        }
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-row mt-3">
-                                <div class="col-md-12">
-                                    <button type="submit" class="btn btn-success">Apply Filter</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </aside>
+	<section class="blogImage mb-5">
+		<div class="blog">
+			<div class="left">
+				<h1>Shop</h1>
+			</div>
+		</div>
+	</section>
+	<div class="container-fluid">
+		<div class="row">
+			<!-- Filter Section -->
+			<aside class="col-md-3">
+				<div class="card mt-5">
+					<div class="card-body">
+						<h5 class="card-title">Filter Products</h5>
+						<button class="btn btn-success btn-sm mb-3" onclick="toggleForm()">Filters</button>
+						<form asp-action="ShopList" asp-controller="Shop" method="post" id="priceFilterForm" style="display: none;">
+							<!-- Min/Max Price -->
+							<div class="form-group">
+								<div class="input-group">
+									<span class="input-group-text">$</span>
+									<input type="number" class="form-control" placeholder="Min Price" asp-for="SearchVM.MinValue" id="minPrice">
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="input-group">
+									<span class="input-group-text">$</span>
+									<input type="number" class="form-control" placeholder="Max Price" asp-for="SearchVM.MaxValue" id="maxPrice">
+								</div>
+							</div>
+							<br />
+							<hr />
+							<!-- Filter Options -->
+							<div class="form-group">
+								<div class="form-group">
+									<button type="button" class="btn btn-secondary" onclick="resetFilterRadioButtons()">Reset Options</button>
+								</div>
 
-            <!-- Product Section -->
-            <main class="col-md-9">
-                <!-- Search Bar Section -->
-                <section class="mt-3">
-                    <div class="container">
-                        <form asp-action="ShopList" asp-controller="Shop" method="post">
-                            <div class="row justify-content-end">
-                                <div class="col-md-8 mb-3">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" asp-for="SearchVM.Search" placeholder="Search Item">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-outline-secondary" type="submit">Search</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </section>
+								<!-- Radio Buttons -->
+								<div class="form-check">
+									<input class="form-check-input" type="radio" asp-for="SearchVM.Filter" value="ProductName" id="productNameFilter">
+									<label class="form-check-label" for="productNameFilter">Product Name</label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input" type="radio" asp-for="SearchVM.Filter" value="LowToHigh" id="lowToHighFilter">
+									<label class="form-check-label" for="lowToHighFilter">Low to High</label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input" type="radio" asp-for="SearchVM.Filter" value="HighToLow" id="highToLowFilter">
+									<label class="form-check-label" for="highToLowFilter">High to Low</label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input" type="radio" asp-for="SearchVM.Filter" value="Featured" id="featuredFilter">
+									<label class="form-check-label" for="featuredFilter">Featured</label>
+								</div>
+							</div>
+							<br />
+							<hr />
+							<div class="form-group">
+								<label>Select Color:</label>
+								<div>
+									<div class="form-group">
+										<button type="button" class="btn btn-secondary" onclick="resetColorRadioButtons()">Reset Colors</button>
+									</div>
 
-                <!-- Product Display Section -->
-                <section class="mt-4">
-                    <div class="container">
-                        <div class="row">
-                            @foreach (var item in Model.Products)
-                            {
-                                <div class="col-md-3 mb-4">
-                                    <!-- Aralık eklenmiş burası -->
-                                    <div class="card-sl">
-                                        <div class="card-image">
-                                            <img src="~/Upload/ProductImages/@item.ProductImages.FirstOrDefault().ImageUrl" alt="">
-                                        </div>
+									@foreach (var color in Model.Colors)
+									{
+										<div class="form-check form-check-inline">
+											<input class="form-check-input" type="radio" value="@color.Name" asp-for="SearchVM.Color">
+											<label class="form-check-label">@color.Name</label>
+										</div>
+									}
+								</div>
+							</div>
+							<br />
+							<hr />
 
-                                        <a class="card-action" asp-route-id="@item.Id" asp-action="ProductSingle" asp-controller="Shop"><i class="fa fa-long-arrow-right"></i></a>
-                                        <div class="card-heading">
-                                            @item.Title
-                                        </div>
-                                        <div class="card-text">
-                                            In Stock: @if (item.IsInStock == true)
-                                            {
-                                                <i class="fa fa-check" aria-hidden="true"></i>
-                                            }
-                                            else
-                                            {
-                                                <i class="fa fa-close"></i>
-                                            }
-                                        </div>
-                                        <div class="card-text">
-                                            $@item.Price
-                                        </div>
-                                        <a href="#" class="card-button"> Details</a>
-                                    </div>
-                                </div>
-                            }
-                        </div>
-                    </div>
-                </section>
+							<!-- Category Filter Section -->
+							<div class="form-group">
+								<label>Select Category:</label>
+								<div>
+									<div class="form-group">
+										<button type="button" class="btn btn-secondary" onclick="resetCategoryRadioButtons()">Reset Categories</button>
+									</div>
 
-                <!-- Pagination -->
-                <div class="row justify-content-center mt-4">
-                    <div class="col-auto">
-                        @await Html.PartialAsync("_PagerPartial", new PagerViewModel
-                   {
-                       PageIndex = Model.PageIndex,
-                       TotalPages = Model.TotalPages,
-                       Action = "ShopList",
-                       Controller = "Shop"
-                   })
-                    </div>
-                </div>
-                <!-- End Pagination -->
-            </main>
-        </div>
-    </div>
+									@foreach (var category in Model.Categories)
+									{
+										<div class="form-check form-check-inline">
+											<input class="form-check-input" type="radio" value="@category.Name" asp-for="SearchVM.Category">
+											<label class="form-check-label">@category.Name</label>
+										</div>
+									}
+								</div>
+							</div>
+							<br />
+							<hr />
+							<!-- Brand Filter Section -->
+							<div class="form-group">
+								<label>Select Brand:</label>
+								<div>
+									<div class="form-group">
+										<button type="button" class="btn btn-secondary" onclick="resetBrandRadioButtons()">Reset Brands</button>
+									</div>
 
+									@foreach (var brand in Model.Brands)
+									{
+										<div class="form-check form-check-inline">
+											<input class="form-check-input" type="radio" value="@brand.Name" asp-for="SearchVM.Brand">
+											<label class="form-check-label">@brand.Name</label>
+										</div>
+									}
+								</div>
+							</div>
+							<br />
+							<!-- Apply Filter Button -->
+							<div class="form-group">
+								<button type="submit" class="btn btn-success">Apply Filter</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</aside>
+
+			<!-- Product Section -->
+			<main class="col-md-9">
+				<!-- Search Bar Section -->
+				<section class="mt-3">
+					<div class="container">
+						<form asp-action="ShopList" asp-controller="Shop" method="post">
+							<div class="row justify-content-end">
+								<div class="col-md-8 mb-3">
+									<div class="input-group">
+										<input type="text" class="form-control" asp-for="SearchVM.Search" placeholder="Search Item">
+										<div class="input-group-append">
+											<button class="btn btn-outline-secondary" type="submit">Search</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</section>
+
+				<!-- Product Display Section -->
+				<section class="mt-4">
+					<div class="container">
+						<div class="row">
+							@foreach (var item in Model.Products)
+							{
+								<div class="col-md-3 mb-4">
+									<!-- Aralık eklenmiş burası -->
+									<div class="card-sl">
+										<div class="card-image">
+											<img src="~/Upload/ProductImages/@item.ProductImages.FirstOrDefault().ImageUrl" alt="">
+										</div>
+
+										<a class="card-action" asp-route-id="@item.Id" asp-action="ProductSingle" asp-controller="Shop"><i class="fa fa-long-arrow-right"></i></a>
+										<div class="card-heading">
+											@item.Title
+										</div>
+										<div class="card-text">
+											In Stock: @if (item.IsInStock == true)
+											{
+												<i class="fa fa-check" aria-hidden="true"></i>
+											}
+											else
+											{
+												<i class="fa fa-close"></i>
+											}
+										</div>
+										<div class="card-text">
+											$@item.Price
+										</div>
+										<a href="#" class="card-button">Details</a>
+									</div>
+								</div>
+							}
+						</div>
+					</div>
+				</section>
+
+				<!-- Pagination -->
+				<div class="row justify-content-center mt-4">
+					<div class="col-auto">
+						@await Html.PartialAsync("_PagerPartial", new PagerViewModel
+						{
+						PageIndex = Model.PageIndex,
+						TotalPages = Model.TotalPages,
+						Action = "ShopList",
+						Controller = "Shop"
+						})
+					</div>
+				</div>
+				<!-- End Pagination -->
+			</main>
+		</div>
+	</div>
 </div>
 <script>
-    function toggleForm() {
-        var form = document.getElementById('priceFilterForm');
-        if (form.style.display === 'none') {
-            form.style.display = 'block';
-        } else {
-            form.style.display = 'none';
-        }
-    }
+	function toggleForm() {
+		var form = document.getElementById('priceFilterForm');
+		if (form.style.display === 'none') {
+			form.style.display = 'block';
+			form.classList.remove('slide-up');
+			form.classList.add('slide-down');
+		} else {
+			form.classList.remove('slide-down');
+			form.classList.add('slide-up');
+			setTimeout(function () {
+				form.style.display = 'none';
+			}, 500); // Animation süresi (0.5 saniye) kadar gecikme
+		}
+	}
+</script>
+<script>
+	function resetColorRadioButtons() {
+		var radioButtons = document.querySelectorAll('input[type="radio"][name="SearchVM.Color"]');
+		radioButtons.forEach(function (radio) {
+			radio.checked = false;
+		});
+	}
+
+	function resetCategoryRadioButtons() {
+		var radioButtons = document.querySelectorAll('input[type="radio"][name="SearchVM.Category"]');
+		radioButtons.forEach(function (radio) {
+			radio.checked = false;
+		});
+	}
+
+	function resetBrandRadioButtons() {
+		var radioButtons = document.querySelectorAll('input[type="radio"][name="SearchVM.Brand"]');
+		radioButtons.forEach(function (radio) {
+			radio.checked = false;
+		});
+	}
+	function resetFilterRadioButtons() {
+		var filterRadioButtons = document.querySelectorAll('input[type="radio"][name="SearchVM.Filter"]');
+		filterRadioButtons.forEach(function (radio) {
+			radio.checked = false;
+		});
+	}
 </script>

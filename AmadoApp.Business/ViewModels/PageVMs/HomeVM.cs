@@ -11,8 +11,10 @@ namespace AmadoApp.Business.ViewModels.PageVMs
 	public class HomeVM
 	{
 		public SubscribeVM? SubscribeVM { get; set; }
-		public List<Product>? Products { get; set; }
+        public List<Product>? Products { get; set; }
         public List<Brand>? Brands { get; set; }
+        public List<Category>? Categories { get; set; }
+        public List<Color>? Colors { get; set; }
 		public SearchVM? SearchVM { get; set; }
         // Pagination Section
         public int PageIndex { get; set; }

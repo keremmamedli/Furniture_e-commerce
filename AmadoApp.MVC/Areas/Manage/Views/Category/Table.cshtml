@@ -1,6 +1,5 @@
-﻿@using AmadoApp.Core.Entities
-@model IQueryable<Category>
-
+﻿@using AmadoApp.Business.ViewModels.PageVMs;
+@model HomeVM
 <!-- Page Heading -->
 <h1 class="h3 mb-2 text-gray-800">Category Table</h1>
 <!-- DataTales Example -->
@@ -10,6 +9,7 @@
     </div>
     <div class="card-body">
         <div class="table-responsive">
+            <div class="mt-4 mb-4" asp-validation-summary=All></div>
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
@@ -32,9 +32,12 @@
                 <tbody>
 
                     @{
-                        var count = 0;
+                        var startingCount = (Model.PageIndex - 1) * Model.PageSize;
+                        var count = startingCount;
+
+                        var categories = Model.Categories;
                     }
-                    @foreach (var item in Model)
+                    @foreach (var item in categories)
                     {
                         count++;
                         if (item.IsDeleted == true)
@@ -82,6 +85,16 @@
             </table>
         </div>
     </div>
-
-    <div class="mt-4 mb-4" asp-validation-summary=All></div>
+    <div class="row justify-content-center mt-4">
+        <div class="col-auto">
+            @await Html.PartialAsync("_PagerPartial", new PagerViewModel
+            {
+            PageIndex = Model.PageIndex,
+            TotalPages = Model.TotalPages,
+            Action = "Table",
+            Controller = "Category"
+            })
+        </div>
+    </div>
+    
 </div>
