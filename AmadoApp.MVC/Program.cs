@@ -18,6 +18,7 @@ namespace AmadoApp.MVC
             // Add services to the container.
             builder.Services.AddRepositories();
             builder.Services.AddServices();
+            builder.Services.AddSession();
 
             builder.Services.AddControllersWithViews();
             builder.Services.AddDbContext<AppDbContext>(opt =>
@@ -60,6 +61,7 @@ namespace AmadoApp.MVC
 
             app.UseRouting();
 
+            app.UseSession();
             app.UseAuthentication();
             app.UseAuthorization();
 

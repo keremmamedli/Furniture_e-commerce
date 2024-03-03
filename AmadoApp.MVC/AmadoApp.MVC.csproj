@@ -28,6 +28,20 @@
     <None Include="wwwroot\assets\.sass-cache\997c61c8c2a2a831333fab68bc2254612bdf8817\_responsive.scssc" />
     <None Include="wwwroot\assets\.sass-cache\997c61c8c2a2a831333fab68bc2254612bdf8817\_theme_color.scssc" />
     <None Include="wwwroot\assets\.sass-cache\997c61c8c2a2a831333fab68bc2254612bdf8817\_variables.scssc" />
+    <None Include="wwwroot\assets\js\plugins\ion.rangeSlider.min.js" />
+    <None Include="wwwroot\assets\js\plugins\jquery.counterup.js" />
+    <None Include="wwwroot\assets\js\plugins\jquery.magnific-popup.min.js" />
+    <None Include="wwwroot\assets\js\plugins\jquery.nice-select.js" />
+    <None Include="wwwroot\assets\js\plugins\mailchimp-ajax.js" />
+    <None Include="wwwroot\assets\js\plugins\parallax.min.js" />
+    <None Include="wwwroot\assets\js\plugins\swiper-bundle.min.js" />
+    <None Include="wwwroot\assets\js\plugins\tippy.min.js" />
+    <None Include="wwwroot\assets\js\plugins\wow.min.js" />
+    <None Include="wwwroot\assets\js\vendor\bootstrap.bundle.min.js" />
+    <None Include="wwwroot\assets\js\vendor\jquery-3.6.0.min.js" />
+    <None Include="wwwroot\assets\js\vendor\jquery-migrate-3.3.2.min.js" />
+    <None Include="wwwroot\assets\js\vendor\jquery.waypoints.js" />
+    <None Include="wwwroot\assets\js\vendor\modernizr-3.11.2.min.js" />
     <None Include="wwwroot\manage\img\undraw_posting_photo.svg" />
     <None Include="wwwroot\manage\img\undraw_profile.svg" />
     <None Include="wwwroot\manage\img\undraw_profile_1.svg" />
@@ -1878,6 +1892,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="ViewComponents\" />
+    <Folder Include="Views\Cart\" />
+    <Folder Include="Views\Shared\Components\" />
     <Folder Include="wwwroot\Upload\ProductImages\" />
   </ItemGroup>
 

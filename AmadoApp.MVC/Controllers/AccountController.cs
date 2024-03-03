@@ -2,6 +2,7 @@
 using AmadoApp.Business.Exceptions.Commons;
 using AmadoApp.Business.Services.Interfaces;
 using AmadoApp.Business.ViewModels.AccountVMs;
+using AmadoApp.Business.ViewModels.PageVMs;
 using AmadoApp.Core.Entities.Account;
 using Microsoft.AspNetCore.Mvc;
 using NuGet.Common;
@@ -160,11 +161,11 @@ namespace AmadoApp.MVC.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Subscription(SubscribeVM vm, string? returnUrl)
+        public async Task<IActionResult> Subscription(HomeVM vm, string? returnUrl)
         {
             try
             {
-                await _accountService.Subscription(vm);
+                await _accountService.Subscription(vm.SubscribeVM);
 
                 if (returnUrl is not null) return Redirect(returnUrl);
 

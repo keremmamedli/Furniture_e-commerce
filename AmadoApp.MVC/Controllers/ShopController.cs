@@ -1,5 +1,7 @@
 ﻿using AmadoApp.Business.Services.Interfaces;
+using AmadoApp.Business.ViewModels.PageVMs;
 using AmadoApp.Core.Entities;
+using Humanizer;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AmadoApp.MVC.Controllers
@@ -17,14 +19,30 @@ namespace AmadoApp.MVC.Controllers
             _brandService = brandService;
         }
 
-        public async Task<IActionResult> ShopList()
+        public async Task<IActionResult> ShopList(decimal? min, decimal? max, string? order)
         {
+            var query = (await _productService.ReadAsync()).ToList();
             ViewData["Categories"] = await _categoryService.ReadAsync();
             ViewData["Brands"] = await _brandService.ReadAsync();
             ViewData["Products"] = await _productService.ReadAsync();
 
-            return View();
-        }
+            var products = new List<Product>();
+			if (min == null && max == null && order == null)
+			{
+				products.AddRange(query);
+			}
+			else
+			{
+				products.AddRange(await _productService.GetAllBySearchAsync(min, max, order));
+			}
+            HomeVM homeVM = new HomeVM();
+            homeVM.Products = products;
+
+
+			return View(homeVM);
+		}
+
+
         public async Task<IActionResult> ProductSingle(int id)
         {
             Product oldProduct =  await _productService.ReadIdAsync(id);
@@ -32,5 +50,5 @@ namespace AmadoApp.MVC.Controllers
             ViewData["Product"] = oldProduct;
             return View();
         }
-    }
+	}
 }

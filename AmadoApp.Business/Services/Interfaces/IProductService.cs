@@ -8,14 +8,15 @@ using System.Threading.Tasks;
 
 namespace AmadoApp.Business.Services.Interfaces
 {
-    public interface IProductService
-    {
-        Task<IQueryable<Product>> ReadAsync();
-        Task<Product> ReadIdAsync(int Id);
-        Task CreateAsync(CreateProductVM entity, string env);
-        Task UpdateAsync(UpdateProductVM entity, string env);
-        Task DeleteAsync(int Id);
-        Task RecoverAsync(int Id);
-        Task RemoveAsync(int Id);
-    }
+	public interface IProductService
+	{
+		Task<IQueryable<Product>> ReadAsync();
+		Task<List<Product>> GetAllBySearchAsync(decimal? minValue, decimal? maxValue, string? Order);
+		Task<Product> ReadIdAsync(int Id);
+		Task CreateAsync(CreateProductVM entity, string env);
+		Task UpdateAsync(UpdateProductVM entity, string env);
+		Task DeleteAsync(int Id);
+		Task RecoverAsync(int Id);
+		Task RemoveAsync(int Id);
+	}
 }

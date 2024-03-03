@@ -39,7 +39,40 @@ namespace AmadoApp.Business.Services.Implementations
             "ProductColors", "ProductColors.Color",
             "ProductImages", 
         };
+        public async Task<List<Product>> GetAllBySearchAsync(decimal? minValue, decimal? maxValue,string? Order)
+        {
+            IQueryable<Product> query = await ReadAsync();
+            if(minValue != null)
+            {
+                query = query.Where(x => x.Price >= minValue);
+            }
 
+            if(maxValue != null)
+            {
+				query = query.Where(x => x.Price <= minValue);
+			}
+
+            if(Order != null)
+            {
+                switch(Order)
+                {
+                    case "LowtoHigh":
+                        query = query.OrderByDescending(x => x.Price);
+                        break;
+					case "HightoLow":
+						query = query.OrderBy(x => x.Price);
+						break;
+					case "ProductName":
+						query = query.OrderBy(x => x.Title);
+						break;
+					case "Featured":
+						query = query.OrderByDescending(x => x.CreatedDate);
+						break;
+				}
+            }
+            return query.ToList();
+
+        }
         public async Task<IQueryable<Product>> ReadAsync()
         {
             IQueryable<Product> query = await _rep.ReadAsync(includes: includes);

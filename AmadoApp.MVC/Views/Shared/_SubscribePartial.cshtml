@@ -1,5 +1,5 @@
-﻿@using AmadoApp.Business.ViewModels.AccountVMs
-@model SubscribeVM
+﻿@using AmadoApp.Business.ViewModels.PageVMs;
+@model HomeVM
 
 <section>
     <div class="subscribe">
@@ -14,7 +14,7 @@
                         <div class="box">
                             <div class="newsletter-form mb-100">
                                 <form method="post">
-                                    <input asp-for="EmailAddress" type="email" class="nl-email" placeholder="Your E-mail" style="width: 700px; height: 50px; border-radius: 5px; padding: 10px;">
+                                    <input asp-for="SubscribeVM.EmailAddress" type="email" class="nl-email" placeholder="Your E-mail" style="width: 700px; height: 50px; border-radius: 5px; padding: 10px;">
                                     <div asp-validation-summary=All class="mt-2 mb-2"></div>
                                     <button type="submit" asp-action="Subscription" asp-controller="Account" class="btn btn-success mt-3" style="height: 40px; margin-left: 10px;">Submit</button>
                                 </form>
