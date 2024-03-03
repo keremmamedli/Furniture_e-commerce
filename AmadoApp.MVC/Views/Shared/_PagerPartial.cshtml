@@ -1,0 +1,73 @@
+﻿@using AmadoApp.Business.ViewModels.PageVMs
+@model PagerViewModel
+
+@{
+    var prevDisabled = Model.PageIndex <= 1 ? "disabled" : "";
+    var nextDisabled = Model.PageIndex >= Model.TotalPages ? "disabled" : "";
+
+    int maxPagesToShow = 3;
+    int totalPages = Model.TotalPages;
+    int currentPage = Model.PageIndex;
+    int startPage = 1;
+    int endPage = totalPages;
+
+    if (totalPages > maxPagesToShow)
+    {
+        startPage = Math.Max(currentPage - maxPagesToShow / 2, 1);
+        endPage = Math.Min(startPage + maxPagesToShow - 1, totalPages);
+
+        if (endPage - startPage < maxPagesToShow - 1)
+        {
+            startPage = Math.Max(endPage - maxPagesToShow + 1, 1);
+        }
+    }
+}
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+        <li class="page-item @prevDisabled">
+            <a class="page-link" href="@Url.Action(Model.Action, Model.Controller, new { page = Model.PageIndex - 1 })" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+
+        @if (startPage > 1)
+        {
+            <li class="page-item">
+                <a class="page-link" href="@Url.Action(Model.Action, Model.Controller, new { page = 1 })">1</a>
+            </li>
+            @if (startPage > 2)
+            {
+                <li class="page-item disabled">
+                    <span class="page-link">...</span>
+                </li>
+            }
+        }
+
+        @for (int i = startPage; i <= endPage; i++)
+        {
+            <li class="page-item @(i == Model.PageIndex ? "active" : "")">
+                <a class="page-link" href="@Url.Action(Model.Action, Model.Controller, new { page = i })">@i</a>
+            </li>
+        }
+
+        @if (endPage < totalPages)
+        {
+            @if (endPage < totalPages - 1)
+            {
+                <li class="page-item disabled">
+                    <span class="page-link">...</span>
+                </li>
+            }
+            <li class="page-item">
+                <a class="page-link" href="@Url.Action(Model.Action, Model.Controller, new { page = totalPages })">@totalPages</a>
+            </li>
+        }
+
+        <li class="page-item @nextDisabled">
+            <a class="page-link" href="@Url.Action(Model.Action, Model.Controller, new { page = Model.PageIndex + 1 })" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>

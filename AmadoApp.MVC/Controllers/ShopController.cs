@@ -3,6 +3,8 @@ using AmadoApp.Business.ViewModels.PageVMs;
 using AmadoApp.Core.Entities;
 using Humanizer;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Drawing.Printing;
 
 namespace AmadoApp.MVC.Controllers
 {
@@ -19,28 +21,67 @@ namespace AmadoApp.MVC.Controllers
             _brandService = brandService;
         }
 
-        public async Task<IActionResult> ShopList(decimal? min, decimal? max, string? order)
+        [HttpGet]
+        public async Task<IActionResult> ShopList(int page = 1)
         {
-            var query = (await _productService.ReadAsync()).ToList();
-            ViewData["Categories"] = await _categoryService.ReadAsync();
-            ViewData["Brands"] = await _brandService.ReadAsync();
-            ViewData["Products"] = await _productService.ReadAsync();
+            int pageSize = 8;
 
-            var products = new List<Product>();
-			if (min == null && max == null && order == null)
-			{
-				products.AddRange(query);
-			}
-			else
-			{
-				products.AddRange(await _productService.GetAllBySearchAsync(min, max, order));
-			}
-            HomeVM homeVM = new HomeVM();
-            homeVM.Products = products;
+            IQueryable<Product> query = await _productService.ReadAsync();
+
+            int totalItems = query.Count();
+            int totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
+
+            var products = query.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+            var categories = (await _categoryService.ReadAsync()).ToList();
+            var brands = (await _brandService.ReadAsync()).ToList();
+
+            var homeVM = new HomeVM
+            {
+                Products = products.ToList(),
+                PageIndex = page,
+                TotalPages = totalPages,
+                Action = "ShopList",
+                Controller = "Shop",
+                PageSize = pageSize,
+                Brands = brands
+            };
+
+            return View(homeVM);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ShopList(HomeVM vm, int page = 1)
+        {
+            var products = await _productService.GetAllBySearchAsync(vm.SearchVM.MinValue, vm.SearchVM.MaxValue, vm.SearchVM.Filter, vm.SearchVM.Search,vm.SearchVM.Brand);
+
+            int pageSize = 8;
+
+            int totalItems = products.Count();
+            int totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
 
 
-			return View(homeVM);
-		}
+            var filteredProducts = products.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+            var categories = (await _categoryService.ReadAsync()).ToList();
+            var brands = (await _brandService.ReadAsync()).ToList();
+
+            
+
+            var homeVM = new HomeVM
+            {
+                Products = filteredProducts,
+                PageIndex = page,
+                TotalPages = totalPages,
+                Action = "ShopList",
+                Controller = "Shop",
+                PageSize = pageSize,
+                Brands = brands
+            };
+
+            return View(homeVM);
+        }
+
 
 
         public async Task<IActionResult> ProductSingle(int id)
@@ -48,6 +89,7 @@ namespace AmadoApp.MVC.Controllers
             Product oldProduct =  await _productService.ReadIdAsync(id);
 
             ViewData["Product"] = oldProduct;
+
             return View();
         }
 	}

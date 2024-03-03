@@ -1,6 +1,8 @@
 ﻿using AmadoApp.Business.Exceptions.Commons;
+using AmadoApp.Business.Services.Implementations;
 using AmadoApp.Business.Services.Interfaces;
 using AmadoApp.Business.ViewModels.BrandVMs;
+using AmadoApp.Business.ViewModels.PageVMs;
 using AmadoApp.Core.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -19,19 +21,44 @@ namespace AmadoApp.MVC.Areas.Manage.Controllers
 
         [HttpGet]
         [Authorize(Roles = "Moderator, Admin")]
-        public async Task<IActionResult> Table()
+        public async Task<IActionResult> Table(int page = 1)
         {
+            IQueryable<Brand> query = await _BrandService.ReadAsync();
+            int pageSize = 1;
+
+            int totalItems = query.Count();
+            int totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
+
+            var brands = query.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+            
             if (User.IsInRole("Admin"))
             {
-                IQueryable<Brand> brands = await _BrandService.ReadAsync();
+                var homeVM = new HomeVM
+                {
+                    Brands = brands,
+                    PageIndex = page,
+                    TotalPages = totalPages,
+                    Action = "ShopList",
+                    Controller = "Shop",
+                    PageSize = pageSize,
+                };
 
-                return View(brands);
+                return View(homeVM);
             }
             else
             {
-                IQueryable<Brand> brands = (await _BrandService.ReadAsync()).Where(x => !x.IsDeleted);
+                var homeVM = new HomeVM
+                {
+                    Brands = brands.Where(x => !x.IsDeleted).ToList(),
+                    PageIndex = page,
+                    TotalPages = totalPages,
+                    Action = "ShopList",
+                    Controller = "Shop",
+                    PageSize = pageSize,
+                };
 
-                return View(brands);
+                return View(homeVM);
             }
         }
 

@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
@@ -39,40 +40,60 @@ namespace AmadoApp.Business.Services.Implementations
             "ProductColors", "ProductColors.Color",
             "ProductImages", 
         };
-        public async Task<List<Product>> GetAllBySearchAsync(decimal? minValue, decimal? maxValue,string? Order)
+
+        public async Task<List<Product>> GetAllBySearchAsync(string? minValue, string? maxValue, string? order, string? search,string? brand)
         {
             IQueryable<Product> query = await ReadAsync();
-            if(minValue != null)
+
+            if (!string.IsNullOrEmpty(minValue))
             {
-                query = query.Where(x => x.Price >= minValue);
+                decimal minPrice = decimal.Parse(minValue);
+                query = query.Where(x => x.Price >= minPrice);
             }
 
-            if(maxValue != null)
+            if (!string.IsNullOrEmpty(maxValue))
             {
-				query = query.Where(x => x.Price <= minValue);
-			}
+                decimal maxPrice = decimal.Parse(maxValue);
+                query = query.Where(x => x.Price <= maxPrice);
+            }
 
-            if(Order != null)
+            if (!string.IsNullOrEmpty(search))
             {
-                switch(Order)
+                search = search.Trim().ToLower(); 
+                query = query.Where(e => e.Title.ToLower().Contains(search)); 
+            }
+            if (!string.IsNullOrEmpty(brand))
+            {
+                brand = brand.Trim().ToLower();
+                query = query.Where(e => e.Brand.Name.ToLower().Contains(brand));
+            }
+
+            if (!string.IsNullOrEmpty(order))
+            {
+                switch (order)
                 {
-                    case "LowtoHigh":
+                    case "LowToHigh":
+                        query = query.OrderBy(x => x.Price);
+                        break;
+                    case "HighToLow":
                         query = query.OrderByDescending(x => x.Price);
                         break;
-					case "HightoLow":
-						query = query.OrderBy(x => x.Price);
-						break;
-					case "ProductName":
-						query = query.OrderBy(x => x.Title);
-						break;
-					case "Featured":
-						query = query.OrderByDescending(x => x.CreatedDate);
-						break;
-				}
+                    case "ProductName":
+                        query = query.OrderBy(x => x.Title);
+                        break;
+                    case "Featured":
+                        query = query.OrderByDescending(x => x.CreatedDate);
+                        break;
+                    default:
+                        throw new ArgumentException("Invalid order type");
+                }
             }
-            return query.ToList();
 
+            return await query.ToListAsync();
         }
+
+
+
         public async Task<IQueryable<Product>> ReadAsync()
         {
             IQueryable<Product> query = await _rep.ReadAsync(includes: includes);

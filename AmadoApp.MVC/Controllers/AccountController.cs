@@ -27,6 +27,7 @@ namespace AmadoApp.MVC.Controllers
         {
             if (!User.Identity.IsAuthenticated)
             {
+                await CreateRoles();
                 return View();
             }
             else

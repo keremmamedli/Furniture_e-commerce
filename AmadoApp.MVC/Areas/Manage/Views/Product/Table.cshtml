@@ -1,7 +1,8 @@
-﻿@using AmadoApp.Core.Entities
+﻿@using AmadoApp.Business.ViewModels.PageVMs
+@using AmadoApp.Core.Entities
 @using PagedList
 
-@model IPagedList<Product>
+@model HomeVM
 
 <h1 class="h3 mb-2 text-gray-800">Product Table</h1>
 
@@ -30,8 +31,12 @@
                 </thead>
                 <tbody>
                     @{
-                        var count = (Model.PageNumber - 1) * Model.PageSize;
-                        foreach (var item in Model)
+                        var startingCount = (Model.PageIndex - 1) * Model.PageSize;
+                        var count = startingCount;
+
+                        var products = Model.Products;
+
+                        foreach (var item in products)
                         {
                             count++;
                             if (item.IsDeleted)
@@ -99,31 +104,17 @@
             </table>
         </div>
     </div>
-    <div class="mt-4 mb-4 d-flex justify-content-center">
-        @if (Model.PageCount > 1)
-        {
-            <nav aria-label="Page navigation">
-                <ul class="pagination">
-                    @if (Model.HasPreviousPage)
-                    {
-                        <li class="page-item">
-                            <a class="page-link" href="@Url.Action("Table", new { page = Model.PageNumber - 1 })">Previous</a>
-                        </li>
-                    }
-                    @for (int i = 1; i <= Model.PageCount; i++)
-                    {
-                        <li class="page-item @(i == Model.PageNumber ? "active" : "")">
-                            <a class="page-link" href="@Url.Action("Table", new { page = i })">@i</a>
-                        </li>
-                    }
-                    @if (Model.HasNextPage)
-                    {
-                        <li class="page-item">
-                            <a class="page-link" href="@Url.Action("Table", new { page = Model.PageNumber + 1 })">Next</a>
-                        </li>
-                    }
-                </ul>
-            </nav>
-        }
+    <!-- Pagination -->
+    <div class="row justify-content-center mt-4">
+        <div class="col-auto">
+            @await Html.PartialAsync("_PagerPartial", new PagerViewModel
+       {
+           PageIndex = Model.PageIndex,
+           TotalPages = Model.TotalPages,
+           Action = "Table",
+           Controller = "Product"
+       })
+        </div>
     </div>
+    <!-- End Pagination -->
 </div>

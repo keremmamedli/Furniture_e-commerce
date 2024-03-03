@@ -11,6 +11,9 @@ using PagedList;
 using PagedList.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using AmadoApp.Business.Services.Implementations;
+using System.Linq;
+using AmadoApp.Business.ViewModels.PageVMs;
 
 namespace AmadoApp.MVC.Areas.Manage.Controllers
 {
@@ -35,23 +38,27 @@ namespace AmadoApp.MVC.Areas.Manage.Controllers
 
         [HttpGet]
         [Authorize(Roles = "Moderator, Admin")]
-        public async Task<IActionResult> Table(int? page)
+        public async Task<IActionResult> Table(int page = 1)
         {
-            IQueryable<Product> products;
+            IQueryable<Product> query = await _ProductService.ReadAsync();
+            int pageSize = 4;
 
-            if (User.IsInRole("Admin"))
+            int totalItems = query.Count();
+            int totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
+
+            var products = query.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+            var homeVM = new HomeVM
             {
-                products = await _ProductService.ReadAsync();
-            }
-            else
-            {
-                products = (await _ProductService.ReadAsync()).Where(x => !x.IsDeleted);
-            }
+                Products = products,
+                PageIndex = page,
+                TotalPages = totalPages,
+                Action = "ShopList",
+                Controller = "Shop",
+                PageSize = pageSize,
+            };
 
-            int pageSize = 4; // Sayfa başına ürün sayısı
-            int pageNumber = page ?? 1;
-
-            return View(products.ToPagedList(pageNumber, pageSize));
+            return View(homeVM);
         }
         [HttpGet]
         [Authorize(Roles = "Moderator, Admin")]

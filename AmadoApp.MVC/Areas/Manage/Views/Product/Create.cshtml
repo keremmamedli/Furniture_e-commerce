@@ -26,7 +26,6 @@
                     <td style="border: 1px solid black">
                         <label asp-for="BrandId" class="form-label">Product Brand</label>
                         <select asp-for="BrandId" class="form-select mx-3" required>
-                            <option value="null">Choose Brand</option>
                             @if (Model.Brands != null)
                             {
                                 foreach (var brand in Model.Brands.ToList())
@@ -40,7 +39,6 @@
                         <label asp-for="ColorIds" class="form-label">Product Colors</label>
                         <br />
                         <select asp-for="ColorIds" class="form-select mx-3" required>
-                            <option value="null">Choose Color</option>
                             @if (Model.Colors != null)
                             {
                                 foreach (var color in Model.Colors.ToList())
@@ -54,7 +52,6 @@
                         <label asp-for="CategoryIds" class="form-label">Product Categories</label>
                         <br />
                         <select asp-for="CategoryIds" class="form-select mx-3" required>
-                            <option value="null">Choose Category</option>
                             @if (Model.Categories != null)
                             {
                                 foreach (var category in Model.Categories.ToList())
