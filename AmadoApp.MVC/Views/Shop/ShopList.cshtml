@@ -243,3 +243,18 @@
 		});
 	}
 </script>
+<script>
+	document.getElementById('priceFilterForm').addEventListener('submit', function (event) {
+		// Get the minimum and maximum price values
+		var minPrice = parseFloat(document.getElementById('minPrice').value);
+		var maxPrice = parseFloat(document.getElementById('maxPrice').value);
+
+		// Check if minPrice is greater than maxPrice
+		if (minPrice > maxPrice) {
+			// Prevent form submission
+			event.preventDefault();
+			// Display an alert message to the user
+			alert('Minimum price cannot be greater than maximum price');
+		}
+	});
+</script>
