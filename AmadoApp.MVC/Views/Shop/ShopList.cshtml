@@ -174,7 +174,16 @@
 										<div class="card-text product-price">
 											$@item.Price
 										</div>
-										<a class="card-button add-to-cart" style="text-decoration: none">Add To Card</a>
+										@if (item.IsInStock == true)
+										{
+											<a class="card-button add-to-cart" style="text-decoration: none">Add To Card</a>
+										}
+										else
+										{
+											<span style="font-weight:bold">
+												NOT IN STOCK
+											</span>
+										}
 									</div>
 								</div>
 							}

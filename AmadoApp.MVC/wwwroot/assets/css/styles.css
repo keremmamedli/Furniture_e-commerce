@@ -767,6 +767,27 @@ body {
     transition: .5s ease-out;
 }
 
+
+.card-action {
+    width: 50px; /* Adjust the width and height as needed */
+    height: 50px; /* Adjust the width and height as needed */
+    border-radius: 50%; /* Makes the element circular */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5); /* Add background color */
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    color: white; /* Text color */
+    transition: all 0.3s ease; /* Add transition effect */
+}
+
+    .card-action:hover {
+        background-color: rgba(0, 0, 0, 0.7); /* Change background color on hover */
+    }
+
+
 .cart-modal {
     height: 100vh;
     width: 50%;
