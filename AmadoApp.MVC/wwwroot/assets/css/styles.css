@@ -630,7 +630,7 @@ body {
 
 .cart-modal {
     height: 100vh;
-    width: 35% !important; /* Change the width to 35% */
+    width: 40% !important; /* Change the width to 35% */
     background-color: ghostwhite !important;
     float: right;
     overflow: scroll;

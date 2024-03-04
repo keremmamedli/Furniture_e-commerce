@@ -152,8 +152,8 @@
 							{
 								<div class="col-md-3 mb-4">
 									<!-- Aralık eklenmiş burası -->
-									<div class="card-sl">
-										<div class="card-image">
+									<div class="card-sl card">
+										<div class="card-image product-image">
 											<img src="~/Upload/ProductImages/@item.ProductImages.FirstOrDefault().ImageUrl" alt="">
 										</div>
 
@@ -171,10 +171,10 @@
 												<i class="fa fa-close"></i>
 											}
 										</div>
-										<div class="card-text">
+										<div class="card-text product-price">
 											$@item.Price
 										</div>
-										<a href="#" class="card-button">Details</a>
+										<a class="card-button add-to-cart" style="text-decoration: none">Add To Card</a>
 									</div>
 								</div>
 							}

@@ -40,7 +40,7 @@
             }
             <div class="menu" onclick="toggleMenu()">&#9776; Menu</div>
             <!-- <div class="basket-icon" onclick="openBasket()">🛒</div> -->
-            <span class="cart-btn">
+            <span class="cart-btn" onclick="toggleCartModal()">
                 <i id="cart" class="fas fa-shopping-cart"></i>
                 <span class="cart-quantity">0</span>
             </span>
@@ -52,11 +52,11 @@
             </li>
         </div>
         <div class="cart-modal-overlay">
-            <div class="cart-modal">
+            <div class="cart-modal cart-container">
                 <i id="close-btn" class="fas fa-times"></i>
                 <h1 class="cart-is-empty">Cart is empty</h1>
 
-                <div class="product-rows">
+                <div class="product-rows cart-items">
                 </div>
                 <div class="total">
                     <h1 class="cart-total" style="color: #198754;font-weight:bold">TOTAL</h1>
@@ -202,3 +202,52 @@
 
 </body>
 </html>
+<script>
+    function removeCartItem(event) {
+        var buttonClicked = event.target;
+        buttonClicked.parentElement.parentElement.remove();
+        updateCartTotal();
+    }
+
+    function quantityChanged(event) {
+        var input = event.target;
+        if (isNaN(input.value) || input.value <= 0) {
+            input.value = 1;
+        }
+        updateCartTotal();
+    }
+
+    function updateCartTotal() {
+        var cartItems = document.querySelectorAll('.cart-item');
+        var total = 0;
+
+        cartItems.forEach(function (cartItem) {
+            var price = parseFloat(cartItem.querySelector('.cart-item-price').innerText.replace('$', ''));
+            var quantity = cartItem.querySelector('.cart-item-quantity').value;
+            total += price * quantity;
+        });
+
+        document.querySelector('.total-price').innerText = '$' + total;
+    }
+
+    function purchaseClicked() {
+        alert('Thank you for your purchase!');
+        var cartItems = document.querySelector('.cart-items');
+        while (cartItems.hasChildNodes()) {
+            cartItems.removeChild(cartItems.firstChild);
+        }
+        updateCartTotal();
+    }
+
+    document.querySelector('.purchase-btn').addEventListener('click', purchaseClicked);
+</script>
+<script>
+    function toggleCartModal() {
+        var cartModalOverlay = document.querySelector('.cart-modal-overlay');
+        if (cartModalOverlay.style.transform === 'translateX(-200%)') {
+            cartModalOverlay.style.transform = 'translateX(0)';
+        } else {
+            cartModalOverlay.style.transform = 'translateX(-200%)';
+        }
+    }
+</script>

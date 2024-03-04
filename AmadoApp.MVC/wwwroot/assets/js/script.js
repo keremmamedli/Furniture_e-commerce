@@ -75,7 +75,7 @@ function addToCartClicked(event) {
     var cartItem = button.parentElement;
     var price = cartItem.getElementsByClassName('product-price')[0].innerText;
 
-    var imageSrc = cartItem.getElementsByClassName('product-image')[0].src;
+    var imageSrc = cartItem.getElementsByClassName('product-image')[0].querySelector('img').src;
     addItemToCart(price, imageSrc);
     updateCartPrice()
 }
@@ -95,7 +95,7 @@ function addItemToCart(price, imageSrc) {
 
     var cartRowItems = `
   <div class="product-row">
-        <img class="cart-image" src="${imageSrc}" alt="">
+        <img src="${imageSrc}" alt="" class="cart-image">
         <span class ="cart-price">${price}</span>
         <input class="product-quantity" type="number" value="1">
         <button class="remove-btn">Remove</button>
