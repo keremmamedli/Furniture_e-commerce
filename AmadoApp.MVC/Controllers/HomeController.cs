@@ -1,7 +1,8 @@
-﻿using AmadoApp.Business.Services.Interfaces;
-using AmadoApp.Core.Entities;
-using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
+﻿using Microsoft.AspNetCore.Mvc;
+using AmadoApp.Business.Services.Interfaces;
+using AmadoApp.Business.ViewModels.PageVMs;
+using System.Threading.Tasks;
+using System.Collections.Generic; // List tipini kullanmak için gerekli using directive
 
 namespace AmadoApp.MVC.Controllers
 {
@@ -16,7 +17,13 @@ namespace AmadoApp.MVC.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View();
+            var products = await _service.ReadAsync(); // ProductService'de bulunan ReadAsync metodu çağrılıyor
+            var productList = products.ToList(); // IQueryable<Product> tipindeki veriyi List<Product> tipine dönüştürüyoruz
+            var model = new HomeVM
+            {
+                Products = productList
+            };
+            return View(model);
         }
         public async Task<IActionResult> AccessDeniedCustom()
         {

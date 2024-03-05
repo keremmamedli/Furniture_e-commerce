@@ -1,4 +1,4 @@
-﻿@using System.Linq
+﻿﻿@using System.Linq
 
 @{
     var productImages = (ViewData["Product"] as Product).ProductImages.ToList();
@@ -66,8 +66,8 @@
                             }
                         </div>
                         <div class="col-md-12">
-                            <div class="action" style="margin-top: 20px;">
-                                <button class="add-to-cart btn btn-default" type="button">Add to Cart</button>
+                            <div class="action" style="margin-top: 20px;color: #198754">
+                                <a class="add-to-cart btn btn-success" type="button" asp-action="ShopList" asp-controller="Shop">Return To Shop Page</a>
                             </div>
                         </div>
                         <div class="col-md-12" style="margin-top: 20px; font-size: 20px;">

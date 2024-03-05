@@ -111,7 +111,7 @@ img {
 }
 
     .checked, .price span {
-        color: #ff9f1a;
+        color: #198754;
     }
 
 .product-title, .rating, .product-description, .price, .vote, .sizes {
@@ -144,7 +144,7 @@ img {
     }
 
 .add-to-cart, .like {
-    background: #ff9f1a;
+    background:  #198754;
     padding: 1.2em 1.5em;
     border: none;
     text-transform: UPPERCASE;

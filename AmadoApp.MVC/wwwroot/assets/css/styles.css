@@ -7,6 +7,10 @@ body {
     background: #3b5d50;
     padding: 15px;
     text-align: center;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1;
 }
 
     .navbar a {
@@ -128,6 +132,7 @@ body {
 .craft {
     margin-top: 100px;
     display: flex;
+    justify-content: center;
 }
 
     .craft h2 {
@@ -142,7 +147,11 @@ body {
         background-color: #212529;
         border-color: black;
         font-size: 20px;
-        border-radius: 13px
+        border-radius: 13px;
+        width: fit-content;
+        margin: 0 auto;
+        border-radius: 13px;
+        padding: 0 12px;
     }
 
         .craft button:hover {
@@ -527,8 +536,16 @@ body {
         display: flex;
     }
 
+    .footer .social{
+        display:flex;
+    }
+
     .footer .social a {
         border-radius: 20px;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        width:fit-content;
     }
 
 .social i {
@@ -736,17 +753,29 @@ body {
     margin: 1em;
     position: relative;
     overflow: hidden;
-    text-align: center
+    text-align: center;
+    transition:all 0.3s ease
 }
 
+    .card:hover{
+        transform:translateY(-12px);
+    }
     .card:hover .add-to-cart {
         transform: translateX(0);
     }
 
 .product-image {
-    margin-bottom: 1em
+    margin-bottom: 1em;
+
 }
 
+    .product-image img {
+        transition: all 0.3s ease;
+    }
+
+.product-image:hover img{
+    transform: scale(1.1);
+}
 
 
 .product-price {
@@ -769,18 +798,19 @@ body {
 
 
 .card-action {
-    width: 50px; /* Adjust the width and height as needed */
-    height: 50px; /* Adjust the width and height as needed */
-    border-radius: 50%; /* Makes the element circular */
+    width: 50px;
+    margin: 12px 0;
+    height: 50px;
+    border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgba(0, 0, 0, 0.5); /* Add background color */
-    position: absolute;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: relative;
     bottom: 0;
     right: 0;
-    color: white; /* Text color */
-    transition: all 0.3s ease; /* Add transition effect */
+    color: white;
+    transition: all 0.3s ease;
 }
 
     .card-action:hover {

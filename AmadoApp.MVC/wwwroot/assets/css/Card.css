@@ -27,7 +27,7 @@ a {
 
     .card-image img {
         width: 100%; /* Ensure the image fills the container */
-        height: auto; /* Allow the image to maintain its aspect ratio */
+        height: 100%; /* Allow the image to maintain its aspect ratio */
         object-fit: cover; /* Cover the entire container while maintaining aspect ratio */
     }
 
@@ -37,6 +37,7 @@ a {
     margin-top: -25px;
     margin-right: 20px;
     z-index: 2;
+    color: #E26D5C;
     color: #E26D5C;
     background: #fff;
     border-radius: 100%;
@@ -56,6 +57,11 @@ a {
     font-weight: bold;
     background: #fff;
     padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 80%;
+    margin: 0 auto;
 }
 
 .card-text {
@@ -74,6 +80,18 @@ a {
     color: #fff;
     border-radius: 0 0 8px 8px;
 }
+
+.card-button  {
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+    width: 100%;
+    background-color: #3b5d50;
+    color: #fff;
+    border-radius: 0 0 8px 8px;
+    text-decoration: none !important;
+}
+
 
     .card-button:hover {
         text-decoration: none;
