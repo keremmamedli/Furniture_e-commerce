@@ -88,7 +88,6 @@ function addItemToCart(price, imageSrc) {
 
     for (var i = 0; i < cartImage.length; i++) {
         if (cartImage[i].src == imageSrc) {
-            alert('This item has already been added to the cart')
             return;
         }
     }
@@ -166,7 +165,6 @@ const closeCartModal = document.querySelector('.cart-modal');
 purchaseBtn.addEventListener('click', purchaseBtnClicked)
 
 function purchaseBtnClicked() {
-    alert('Thank you for your purchase');
     cartModalOverlay.style.transform = 'translateX(-100%)'
     var cartItems = document.getElementsByClassName('product-rows')[0]
     while (cartItems.hasChildNodes()) {
@@ -174,4 +172,36 @@ function purchaseBtnClicked() {
 
     }
     updateCartPrice()
+}
+// Function to update total price in purchase modal
+function updateTotalPrice() {
+    var total = document.querySelector('.total-price').innerText; // Get the total price from the cart
+    document.getElementById('paymentTotalPrice').innerText = total; // Update the total price in the purchase modal
+}
+
+// Function to handle purchase button click event
+function purchaseClicked() {
+    updateTotalPrice(); // Update the total price in the purchase modal
+    openPurchaseModal(); // Open the purchase modal
+}
+
+// Add an event listener to the purchase button
+document.querySelector('.purchase-btn').addEventListener('click', purchaseClicked);
+
+function purchaseClicked() {
+    // Update the total price in the purchase modal
+    updateTotalPrice();
+    // Open the purchase modal
+    openPurchaseModal();
+}
+
+// Add an event listener to the purchase button
+document.querySelector('.purchase-btn').addEventListener('click', purchaseClicked);
+
+// Function to update total price in purchase modal
+function updateTotalPrice() {
+    // Get the last calculated total price from the cart
+    var total = document.querySelector('.total-price').innerText;
+    // Update the total price in the purchase modal
+    document.getElementById('paymentTotalPrice').innerText = total;
 }

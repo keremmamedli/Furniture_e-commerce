@@ -132,7 +132,7 @@
 						<form asp-action="ShopList" asp-controller="Shop" method="post">
 							<div class="row justify-content-end">
 								<div class="col-md-8 mb-3">
-									<div class="input-group">
+									<div class="input-group" style="z-index:1">
 										<input type="text" class="form-control" asp-for="SearchVM.Search" placeholder="Search Item">
 										<div class="input-group-append">
 											<button class="btn btn-outline-secondary" type="submit">Search</button>
@@ -196,7 +196,7 @@
 
 				<!-- Pagination -->
 				<div class="row justify-content-center mt-4">
-					<div class="col-auto">
+					<div class="col-auto" style="z-index:1">
 						@await Html.PartialAsync("_PagerPartial", new PagerViewModel
 						{
 						PageIndex = Model.PageIndex,
@@ -268,5 +268,14 @@
 			// Display an alert message to the user
 			alert('Minimum price cannot be greater than maximum price');
 		}
+		if(minPrice<0){
+			event.preventDefault();
+			alert('Minimum price cannot be lower than 0')
+		}
+		if (maxPrice < 0) {
+			event.preventDefault();
+			alert('Maximum price cannot be lower than 0')
+		}
+
 	});
 </script>

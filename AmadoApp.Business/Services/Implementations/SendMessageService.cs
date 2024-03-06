@@ -22,7 +22,7 @@ namespace AmadoApp.Business.Services.Implementations
 					{
 						client.UseDefaultCredentials = false;
 						client.DeliveryMethod = SmtpDeliveryMethod.Network;
-						client.Credentials = new NetworkCredential("karamlma@code.edu.az", "sgor hnsn ldix ysbk");
+						client.Credentials = new NetworkCredential("karamlma@code.edu.az", "ocbx juim drnh fqpl");
 						client.EnableSsl = true;
 
 						var mailMessage = new MailMessage()
@@ -43,7 +43,7 @@ namespace AmadoApp.Business.Services.Implementations
 					{
 						client.UseDefaultCredentials = false;
 						client.DeliveryMethod = SmtpDeliveryMethod.Network;
-						client.Credentials = new NetworkCredential("karamlma@code.edu.az", "sgor hnsn ldix ysbk");
+						client.Credentials = new NetworkCredential("karamlma@code.edu.az", "ocbx juim drnh fqpl");
 						client.EnableSsl = true;
 
 						var mailMessage = new MailMessage()
@@ -70,7 +70,7 @@ namespace AmadoApp.Business.Services.Implementations
 					{
 						client.UseDefaultCredentials = false;
 						client.DeliveryMethod = SmtpDeliveryMethod.Network;
-						client.Credentials = new NetworkCredential("karamlma@code.edu.az", "sgor hnsn ldix ysbk");
+						client.Credentials = new NetworkCredential("karamlma@code.edu.az", "ocbx juim drnh fqpl");
 						client.EnableSsl = true;
 
 						var mailMessage = new MailMessage()
@@ -98,12 +98,12 @@ namespace AmadoApp.Business.Services.Implementations
 			{
 				client.UseDefaultCredentials = false;
 				client.DeliveryMethod = SmtpDeliveryMethod.Network;
-				client.Credentials = new NetworkCredential("karamlma@code.edu.az", "sgor hnsn ldix ysbk");
+				client.Credentials = new NetworkCredential("karamlma@code.edu.az", "ocbx juim drnh fqpl");
 				client.EnableSsl = true;
 
 				var mailMessage = new MailMessage
 				{
-					From = new MailAddress("sendm554@gmail.com"),
+					From = new MailAddress("karamlma@code.edu.az"),
 					Subject = "Welcome to Furni. ",
 					Body = $"<!DOCTYPE html>" +
 					   $"<html>" +

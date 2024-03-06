@@ -10861,21 +10861,21 @@ a:focus {
 }
 
 .bg-login-image {
-  background: url("https://source.unsplash.com/K4mSJ7kc0As/600x800");
-  background-position: center;
-  background-size: cover;
+    background: url("https://img.freepik.com/free-photo/picture-frame-by-velvet-armchair_53876-132788.jpg?w=360&t=st=1709748839~exp=1709749439~hmac=fc0aae69d7f14207ecec9068b8532a28d5cbf525d88c5e67ad8c43a10c8c4194") !important;
+    background-position: center;
+    background-size: cover;
 }
 
 .bg-register-image {
-  background: url("https://source.unsplash.com/Mv9hjnEUHR4/600x800");
-  background-position: center;
-  background-size: cover;
+    background: url("https://img.freepik.com/free-photo/picture-frame-by-velvet-armchair_53876-132788.jpg?w=360&t=st=1709748839~exp=1709749439~hmac=fc0aae69d7f14207ecec9068b8532a28d5cbf525d88c5e67ad8c43a10c8c4194") !important;
+    background-position: center;
+    background-size: cover;
 }
 
 .bg-password-image {
-  background: url("https://source.unsplash.com/oWTW-jNGl9I/600x800");
-  background-position: center;
-  background-size: cover;
+    background: url("https://img.freepik.com/free-photo/picture-frame-by-velvet-armchair_53876-132788.jpg?w=360&t=st=1709748839~exp=1709749439~hmac=fc0aae69d7f14207ecec9068b8532a28d5cbf525d88c5e67ad8c43a10c8c4194") !important;
+    background-position: center;
+    background-size: cover;
 }
 
 form.user .custom-checkbox.small label {
