@@ -1,0 +1,80 @@
+﻿@using AmadoApp.Core.Entities
+@model IQueryable<Checkout>
+
+<!-- Page Heading -->
+<h1 class="h3 mb-2 text-gray-800">Subscribe Table</h1>
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>N#</th>
+                        <th>Full Name</th>
+                        <th>Phone Number</th>
+                        <th>Card Number</th>
+                        <th>Month</th>
+                        <th>Year</th>
+                        <th>CVV</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>N#</th>
+                        <th>Full Name</th>
+                        <th>Phone Number</th>
+                        <th>Card Number</th>
+                        <th>Month</th>
+                        <th>Year</th>
+                        <th>CVV</th>
+                    </tr>
+                </tfoot>
+                <tbody>
+
+                    @{
+                        var count = 0;
+                    }
+                    @foreach (var item in Model)
+                    {
+                        count++;
+                        if (item.IsDeleted == true)
+                        {
+                            <tr style="color: red">
+                                <th>@count</th>
+                                <th>@item.FullName</th>
+                                <th>@item.PhoneNumber</th>
+                                <th>@item.CardNumber</th>
+                                <th>@item.Month</th>
+                                <th>@item.Year</th>
+                                <th>@item.CVV</th>
+                                <th>
+                                    <a asp-action="Recover" asp-controller="Checkout" asp-route-id="@item.Id" class="btn btn-success">Recover</a>
+                                    <a asp-action="Remove" asp-controller="Checkout" asp-route-id="@item.Id" class="btn btn-danger">Remove</a>
+                                </th>
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr>
+                                <th>@count</th>
+                                <th>@item.FullName</th>
+                                <th>@item.PhoneNumber</th>
+                                <th>@item.CardNumber</th>
+                                <th>@item.Month</th>
+                                <th>@item.Year</th>
+                                <th>@item.CVV</th>
+                                <th>
+                                    <a asp-action="Delete" asp-controller="Checkout" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                                </th>
+                            </tr>
+                        }
+
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="mt-4 mb-4" asp-validation-summary=All></div>
+</div>

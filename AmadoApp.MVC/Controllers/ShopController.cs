@@ -40,7 +40,7 @@ namespace AmadoApp.MVC.Controllers
 		[HttpGet]
         public async Task<IActionResult> ShopList(int page = 1)
         {
-            int pageSize = 8;
+            int pageSize = 4;
 
             IQueryable<Product> query = await _productService.ReadAsync();
 
@@ -115,7 +115,7 @@ namespace AmadoApp.MVC.Controllers
         {
             var products = await _productService.GetAllBySearchAsync(vm.SearchVM.MinValue, vm.SearchVM.MaxValue, vm.SearchVM.Filter, vm.SearchVM.Search, vm.SearchVM.Brand, vm.SearchVM.Category,vm.SearchVM.Color);
 
-            int pageSize = 8;
+            int pageSize = 4;
 
             int totalItems = products.Count();
             int totalPages = (int)Math.Ceiling((double)totalItems / pageSize);

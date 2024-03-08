@@ -30,7 +30,7 @@ namespace AmadoApp.Business.Services.Implementations
 							From = new MailAddress("karamlma@code.edu.az"),
 							Subject = "Welcome to Furni. Website",
 							Body = $"Hello I am from {webUser}" +
-							$"<p>Welcome to Furni. , your ultimate destination for style inspiration and exclusive updates! As a valued subscriber, you're in for a treat. Get ready to elevate your inbox with a curated selection of fashion insights, lifestyle trends, and insider news tailored specifically for you. Delight in early access to our latest collections, limited-time offers, and exclusive promotions, all delivered directly to your inbox. Your preferences matter, and we're committed to providing a personalized experience that matches your unique taste. Join our vibrant community, share your thoughts, and engage with fellow subscribers. Your privacy is important to us, and we ensure the security of your information. Expect surprises – from exciting giveaways to special treats, we love to spoil our subscribers. Get set for a subscription journey filled with elegance, sophistication, and endless style possibilities. Embrace your individuality with Diana, where every newsletter is a celebration of your distinct persona.<p>",
+							$"<p>Welcome to Furni. , your ultimate destination for style inspiration and exclusive updates! As a valued subscriber, you're in for a treat. Get ready to elevate your inbox with a curated selection of fashion insights, lifestyle trends, and insider news tailored specifically for you. Delight in early access to our latest collections, limited-time offers, and exclusive promotions, all delivered directly to your inbox. Your preferences matter, and we're committed to providing a personalized experience that matches your unique taste. Join our vibrant community, share your thoughts, and engage with fellow subscribers. Your privacy is important to us, and we ensure the security of your information. Expect surprises – from exciting giveaways to special treats, we love to spoil our subscribers. Get set for a subscription journey filled with elegance, sophistication, and endless style possibilities. Embrace your individuality with Furni., where every newsletter is a celebration of your distinct persona.<p>",
 							IsBodyHtml = true
 						};
 
@@ -76,7 +76,7 @@ namespace AmadoApp.Business.Services.Implementations
 						var mailMessage = new MailMessage()
 						{
 							From = new MailAddress("karamlma@code.edu.az"),
-							Subject = "Welcome to Diana Website",
+							Subject = "Welcome to Furni. Website",
 							Body = $"Hello {webUser}, " +
 							$"Thank you for visiting our website. " +
 							$"Please write this code to confirmation section\n" +
