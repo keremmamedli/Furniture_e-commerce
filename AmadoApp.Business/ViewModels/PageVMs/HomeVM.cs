@@ -1,4 +1,5 @@
 ﻿using AmadoApp.Business.ViewModels.AccountVMs;
+using AmadoApp.Business.ViewModels.BasketVMs;
 using AmadoApp.Core.Entities;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,9 @@ namespace AmadoApp.Business.ViewModels.PageVMs
         public List<Category>? Categories { get; set; }
         public List<Color>? Colors { get; set; }
 		public SearchVM? SearchVM { get; set; }
+        public List<BasketItem>? BasketItems { get; set; }
+        public CheckoutVM? CheckoutVM { get; set; }
+
         // Pagination Section
         public int PageIndex { get; set; }
         public int TotalPages { get; set; }

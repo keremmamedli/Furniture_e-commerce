@@ -15,7 +15,7 @@
     }
 </style>
 
-<div class="container">
+<div class="container" id="productsingle">
     <div class="card">
         <div class="container-fliud">
             <div class="wrapper row">
@@ -47,7 +47,7 @@
                         </div>
                         <div class="col-md-12">
                             <h5 class="colors">
-                                Color:
+                                Color(s):
                                 @foreach (var productColor in (ViewData["Product"] as Product).ProductColors)
                                 {
                                     <span class="size" data-toggle="tooltip" title="Color">@productColor.Color.Name</span>
@@ -67,11 +67,14 @@
                         </div>
                         <div class="col-md-12">
                             <div class="action" style="margin-top: 20px;color: #198754">
-                                <a class="add-to-cart btn btn-success" type="button" asp-action="ShopList" asp-controller="Shop">Return To Shop Page</a>
+                                <a class="add-to-cart btn btn-success" type="button" asp-action="AddItem" asp-controller="Basket" asp-route-id="@((ViewData["Product"] as Product).Id)" asp-route-returnUrl="/Shop/ProductSingle/@((ViewData["Product"] as Product).Id)">Add to Cart</a>
                             </div>
                         </div>
                         <div class="col-md-12" style="margin-top: 20px; font-size: 20px;">
                             <h4 class="price">Current Price: <span>@((ViewData["Product"] as Product).Price)</span></h4>
+                        </div>
+                        <div class="text-center mt-5">
+                            <a class="add-to-cart btn btn-secondary" type="button" asp-action="ShopList" asp-controller="Shop">Go back Shop Page</a>
                         </div>
                     </div>
                 </div>
@@ -79,3 +82,9 @@
         </div>
     </div>
 </div>
+
+<script>
+    window.onload = function () {
+        window.location.hash = '#productsingle';
+    };
+</script>

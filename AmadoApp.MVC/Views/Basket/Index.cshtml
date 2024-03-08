@@ -1,0 +1,64 @@
+﻿@using AmadoApp.Business.ViewModels.PageVMs
+@model HomeVM
+<link rel="stylesheet" href="~/assets/basket.css" />
+
+<div id="basketitems" class="container" style="padding: 2rem;">
+    <h1>Shopping Cart</h1>
+    <br>
+    <div class="shopping-cart">
+        @if (Model.BasketItems.Any())
+        {
+            decimal total = Model.BasketItems.Sum(item => item.Count * item.Price);
+
+            @foreach (var item in Model.BasketItems)
+            {
+                var product = Model.Products.FirstOrDefault(x => x.Id == item.ProductId);
+                <div class="product">
+                    <div class="product-image">
+                        <div style="width: 100%">
+                            @if (product.ProductImages.FirstOrDefault()?.ImageUrl is not null)
+                            {
+                                <img width="100px" src="~/Upload/ProductImages/@product.ProductImages.FirstOrDefault().ImageUrl" alt="@product.Title" />
+                            }
+                        </div>
+                    </div>
+                    <div class="product-details">
+                        <div class="product-title">@product.Title</div>
+                        <p class="product-description">@product.Description</p>
+                    </div>
+                    <div class="product-price mb-4">@item.Price</div>
+                    <div class="product-quantity">
+                        <input type="number" value="@item.Count" min="1">
+                    </div>
+                    <div class="product-removal">
+                        <a asp-action="DeleteItem" asp-controller="Basket" asp-route-id="@item.ProductId" class="remove-product btn btn-success">
+                            Remove
+                        </a>
+                    </div>
+                    <div class="product-line-price">@item.Price</div>
+                </div>
+            }
+
+            <div class="totals">
+                <div class="totals-item">
+                    <label>Total Price</label>
+                    <div class="totals-value" id="cart-subtotal">@total</div>
+                </div>
+            </div>
+
+            <a class="checkout btn btn-success" asp-action="Checkout" asp-controller="Basket">Checkout</a>
+        }
+        else
+        {
+            <h1 class="text-center m-5">Your shopping cart is empty.</h1>
+        }
+    </div>
+
+</div>
+<script src="~/assets/basket.js"></script>
+
+<script>
+    window.onload = function () {
+        window.location.hash = '#basketitems';
+    };
+</script>

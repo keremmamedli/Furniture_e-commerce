@@ -1,0 +1,132 @@
+﻿/* Global settings */
+.product-image {
+    width: 100px;
+    margin-right: 1rem;
+}
+
+.product-details {
+    width: 600px;
+    padding-right: 1rem;
+}
+
+.product-price, .product-quantity, .product-removal, .product-line-price {
+    margin-right: 3rem;
+    display: flex;
+    align-items: center;
+}
+
+
+/* Use flexbox for product layout */
+.product {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+}
+
+/* Enhancements for buttons and inputs */
+.product-quantity input,
+.remove-product {
+    padding: 0.5rem;
+    margin: 0;
+}
+
+.container {
+    max-width: 1600px; /* Adjust the width as needed */
+    margin: auto;
+}
+
+.product-image {
+    width: 150px;
+    pointer-events: none;
+}
+
+.product-title {
+    font-size: 1.5rem; /* Larger font size */
+    font-weight: bold; /* Make the title bold */
+    margin-bottom: 0.5rem;
+}
+
+.product-description {
+    color: #666; /* Subtle color for the description */
+    font-size: 1rem;
+}
+
+.remove-product {
+    background-color: #e66;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+    .remove-product:hover {
+        background-color: #a44;
+    }
+
+/* Totals section */
+.totals {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 1rem;
+    font-weight: bold;
+}
+
+.totals-item {
+    margin-right: 1rem;
+}
+
+.totals-value {
+    min-width: 100px;
+    text-align: right;
+}
+
+.checkout {
+    padding: 1rem 2rem;
+    background-color: #6b6;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+    .checkout:hover {
+        background-color: #494;
+    }
+
+/* Adjustments for mobile responsiveness */
+@media screen and (max-width: 650px) {
+    .product {
+        flex-wrap: wrap;
+    }
+
+    .product-details,
+    .product-price,
+    .product-quantity,
+    .product-removal,
+    .product-line-price {
+        width: 100%;
+        margin-right: 0;
+        justify-content: space-between;
+    }
+
+    .product-image {
+        margin: auto;
+        display: block;
+    }
+
+    .totals {
+        flex-direction: column;
+        align-items: flex-end;
+    }
+}
+
+/* Further adjustments for smaller screens */
+@media screen and (max-width: 350px) {
+    .checkout {
+        width: 100%;
+    }
+}

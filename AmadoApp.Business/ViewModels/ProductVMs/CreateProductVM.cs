@@ -16,9 +16,9 @@ namespace AmadoApp.Business.ViewModels.ProductVMs
         public decimal Price { get; set; }
         public bool IsInStock { get; set; }
         public int BrandId { get; set; }
-        public ICollection<int> BrandIds { get; set; }
-        public ICollection<int> CategoryIds { get; set; }
-        public ICollection<int> ColorIds { get; set; }
+        public ICollection<int>? BrandIds { get; set; }
+        public ICollection<int>? CategoryIds { get; set; }
+        public ICollection<int>? ColorIds { get; set; }
         public ICollection<IFormFile>? ProductFiles { get; set; }
 
         // Post Section

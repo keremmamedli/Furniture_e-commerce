@@ -1,0 +1,147 @@
+﻿@{
+    Layout = null;
+}
+
+@using AmadoApp.Business.ViewModels.PageVMs
+@model HomeVM
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Furni Checkout Section</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/assets/checkout.css" />
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/bb515311f9.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="checkout-container">
+        <div class="left-side">
+            <!-- Left side content (if any) -->
+        </div>
+
+        <div class="right-side">
+            <div class="receipt">
+                <h2 class="receipt-heading">Checkout Summary</h2>
+                <div>
+                    <table class="table">
+                        @if (Model.BasketItems.Any())
+                        {
+                            decimal total = Model.BasketItems.Sum(item => item.Count * item.Price);
+
+                            @foreach (var item in Model.BasketItems)
+                            {
+                                var product = Model.Products.FirstOrDefault(x => x.Id == item.ProductId);
+                                <tr>
+                                    <td>@product.Title @product.Price x @item.Count</td>
+                                    <td class="price">$@(product.Price * item.Count)</td>
+                                </tr>
+                            }
+
+                            <tr class="total">
+                                <td>Total</td>
+                                <td class="price">$@total</td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+
+            <div class="payment-info">
+                <h3 class="payment-heading">Payment Information</h3>
+                <form class="form-box" method="post" enctype="multipart/form-data">
+                    <div asp-validation-summary="All" style="color: red; font-size: 16px">
+                    </div>
+                    <div>
+                        <label for="full-name">Full Name</label>
+                        <input id="full-name"
+                               placeholder="Satoshi Nakamoto"
+                               required
+                               asp-for="CheckoutVM.FullName" />
+                    </div>
+
+                    <div>
+                        <label for="full-name">Phone Number</label>
+                        <input id="full-name"
+                               placeholder="+994 XX XXX XX XX"
+                               required
+                               asp-for="CheckoutVM.PhoneNumber" />
+                    </div>
+
+                    <div>
+                        <label for="credit-card-num">
+                            Card Number
+                        </label>
+                        <input id="credit-card-num"
+                               placeholder="1111-2222-3333-4444"
+                               required
+                               asp-for="CheckoutVM.CardNumber" />
+                    </div>
+
+                    <div style="font-size: 12px;>
+                        <p class="expires">Expires on:</p>
+                        <div class="card-experation">
+                            <label for="expiration-month">Month</label>
+                            <select asp-for="CheckoutVM.Month" id="expiration-month" required>
+                                <option value=@null>Month:</option>
+                                <option value="Jan">January</option>
+                                <option value="Feb">February</option>
+                                <option value="Mar">March</option>
+                                <option value="Apr">April</option>
+                                <option value="May">May</option>
+                                <option value="Jun">June</option>
+                                <option value="Jul">July</option>
+                                <option value="Aug">August</option>
+                                <option value="Sep">September</option>
+                                <option value="Oct">October</option>
+                                <option value="Nov">November</option>
+                                <option value="Dec">Decemeber</option>
+                            </select>
+
+                            <label class="expiration-year">Year</label>
+                            <select asp-for="CheckoutVM.Year" id="experation-year" required>
+                                <option value=@null>Year</option>
+                                <option value="23">2023</option>
+                                <option value="24">2024</option>
+                                <option value="25">2025</option>
+                                <option value="26">2026</option>
+                                <option value="27">2027</option>
+                                <option value="28">2028</option>
+                                <option value="29">2029</option>
+                                <option value="30">2030</option>
+                                <option value="31">2031</option>
+                                <option value="32">2032</option>
+                                <option value="33">2033</option>
+                                <option value="34">2034</option>
+                                <option value="35">2035</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="cvv">CVV</label>
+                        <input id="cvv"
+                               placeholder="415"
+                               asp-for="CheckoutVM.CVV"
+                               required />
+                    </div>
+
+                    <div class="m-t-20 text-center">
+                        <button class="btn btn-primary submit-btn">Purchase</button>
+                        <a class="btn btn-secondary submit-btn" asp-action="Index" asp-controller="Basket" role="button">Cancel</a>
+                    </div>
+                </form>
+
+                <p class="footer-text">
+                    <i class="fa-solid fa-lock"></i>
+                    Your credit card information is encrypted
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/assets/checkout.js"></script>
+</body>
+</html>

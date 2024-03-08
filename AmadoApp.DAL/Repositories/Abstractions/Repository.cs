@@ -62,7 +62,7 @@ namespace AmadoApp.DAL.Repositories.Abstractions
                 }
             }
 
-            return await query.AsNoTracking().Where(x => x.Id == Id).FirstOrDefaultAsync();
+            return await query.Where(x => x.Id == Id).FirstOrDefaultAsync();
         }
 
         public async Task<T> CreateAsync(T entity)

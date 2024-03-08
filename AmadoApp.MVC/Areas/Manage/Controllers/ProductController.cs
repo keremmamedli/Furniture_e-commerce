@@ -174,6 +174,10 @@ namespace AmadoApp.MVC.Areas.Manage.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create(CreateProductVM vm)
         {
+            vm.Brands = await _repBrand.ReadAsync();
+            vm.Categories = await _repCat.ReadAsync();
+            vm.Colors = await _context.Colors.ToListAsync();
+
             try
             {
                 await _ProductService.CreateAsync(vm, _env.WebRootPath);
@@ -249,6 +253,10 @@ namespace AmadoApp.MVC.Areas.Manage.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update(UpdateProductVM vm)
         {
+            vm.Brands = await _repBrand.ReadAsync();
+            vm.Categories = await _repCat.ReadAsync();
+            vm.Colors = await _context.Colors.ToListAsync();
+
             try
             {
                 await _ProductService.UpdateAsync(vm, _env.WebRootPath);

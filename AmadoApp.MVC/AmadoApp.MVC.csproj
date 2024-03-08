@@ -9,37 +9,23 @@
   <ItemGroup>
     <Compile Remove="Areas\Manage\Data\**" />
     <Compile Remove="Areas\Manage\Models\**" />
-    <Compile Remove="ViewComponents\**" />
     <Compile Remove="Views\Cart\**" />
-    <Compile Remove="Views\Shared\Components\**" />
+    <Compile Remove="wwwroot\assets\.sass-cache\**" />
     <Content Remove="Areas\Manage\Data\**" />
     <Content Remove="Areas\Manage\Models\**" />
-    <Content Remove="ViewComponents\**" />
     <Content Remove="Views\Cart\**" />
-    <Content Remove="Views\Shared\Components\**" />
+    <Content Remove="wwwroot\assets\.sass-cache\**" />
     <EmbeddedResource Remove="Areas\Manage\Data\**" />
     <EmbeddedResource Remove="Areas\Manage\Models\**" />
-    <EmbeddedResource Remove="ViewComponents\**" />
     <EmbeddedResource Remove="Views\Cart\**" />
-    <EmbeddedResource Remove="Views\Shared\Components\**" />
+    <EmbeddedResource Remove="wwwroot\assets\.sass-cache\**" />
     <None Remove="Areas\Manage\Data\**" />
     <None Remove="Areas\Manage\Models\**" />
-    <None Remove="ViewComponents\**" />
     <None Remove="Views\Cart\**" />
-    <None Remove="Views\Shared\Components\**" />
+    <None Remove="wwwroot\assets\.sass-cache\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\assets\.sass-cache\23fb10bb6531a16595cc9a8cbcaeb8f40f41ec84\style.scssc" />
-    <None Include="wwwroot\assets\.sass-cache\23fb10bb6531a16595cc9a8cbcaeb8f40f41ec84\_mixin.scssc" />
-    <None Include="wwwroot\assets\.sass-cache\23fb10bb6531a16595cc9a8cbcaeb8f40f41ec84\_responsive.scssc" />
-    <None Include="wwwroot\assets\.sass-cache\23fb10bb6531a16595cc9a8cbcaeb8f40f41ec84\_theme_color.scssc" />
-    <None Include="wwwroot\assets\.sass-cache\23fb10bb6531a16595cc9a8cbcaeb8f40f41ec84\_variables.scssc" />
-    <None Include="wwwroot\assets\.sass-cache\997c61c8c2a2a831333fab68bc2254612bdf8817\style.scssc" />
-    <None Include="wwwroot\assets\.sass-cache\997c61c8c2a2a831333fab68bc2254612bdf8817\_mixin.scssc" />
-    <None Include="wwwroot\assets\.sass-cache\997c61c8c2a2a831333fab68bc2254612bdf8817\_responsive.scssc" />
-    <None Include="wwwroot\assets\.sass-cache\997c61c8c2a2a831333fab68bc2254612bdf8817\_theme_color.scssc" />
-    <None Include="wwwroot\assets\.sass-cache\997c61c8c2a2a831333fab68bc2254612bdf8817\_variables.scssc" />
     <None Include="wwwroot\assets\js\plugins\ion.rangeSlider.min.js" />
     <None Include="wwwroot\assets\js\plugins\jquery.counterup.js" />
     <None Include="wwwroot\assets\js\plugins\jquery.magnific-popup.min.js" />

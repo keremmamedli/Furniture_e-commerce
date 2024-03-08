@@ -2,37 +2,94 @@
 using AmadoApp.Business.Services.Interfaces;
 using AmadoApp.Business.ViewModels.PageVMs;
 using System.Threading.Tasks;
-using System.Collections.Generic; // List tipini kullanmak için gerekli using directive
+using AmadoApp.Core.Entities;
+using System.Security.Claims;
+using AmadoApp.DAL.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace AmadoApp.MVC.Controllers
 {
 	public class HomeController : Controller
 	{
 		private readonly IProductService _service;
+        private readonly IBasketItemRepository _basketItemRepository;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-		public HomeController(IProductService service)
-		{
-			_service = service;
-		}
+        public HomeController(IProductService service, IBasketItemRepository basketItemRepository, IHttpContextAccessor httpContextAccessor)
+        {
+            _service = service;
+            _basketItemRepository = basketItemRepository;
+            _httpContextAccessor = httpContextAccessor;
+        }
 
-		public async Task<IActionResult> Index()
-		{
-			var products = await _service.ReadAsync(); // ProductService'de bulunan ReadAsync metodu çağrılıyor
-			var productList = products.ToList(); // IQueryable<Product> tipindeki veriyi List<Product> tipine dönüştürüyoruz
-			var model = new HomeVM
-			{
-				Products = productList
-			};
-			return View(model);
-		}
-		public async Task<IActionResult> AccessDeniedCustom()
+        public async Task<IActionResult> Index()
+        {
+            var products = await _service.ReadAsync();
+            var productList = products.Where(x => !x.IsDeleted).ToList();
+
+            HomeVM model = new()
+            {
+                Products = productList
+            };
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var basketItems = await GetItemsByUserIdAsync(userId);
+                model.BasketItems = basketItems;
+            }
+            else
+            {
+                var existingItems = _httpContextAccessor.HttpContext.Request.Cookies["BasketItems"];
+                if (!string.IsNullOrEmpty(existingItems))
+                {
+                    var items = existingItems.Split('|').Select(item =>
+                    {
+                        var parts = item.Split(':');
+                        return new BasketItem
+                        {
+                            ProductId = int.Parse(parts[0]),
+                            Count = int.Parse(parts[1]),
+                            Price = decimal.Parse(parts[2])
+                        };
+                    }).ToList();
+
+                    var groupedItems = items
+                        .GroupBy(i => i.ProductId)
+                        .Select(g => new BasketItem
+                        {
+                            ProductId = g.Key,
+                            Count = g.Sum(i => i.Count),
+                            Price = g.First().Price
+                        })
+                        .ToList();
+
+                    model.BasketItems = groupedItems;
+                }
+                else
+                {
+                    model.BasketItems = new List<BasketItem>();
+                }
+
+            }
+
+            return View(model);
+        }
+
+        public async Task<IActionResult> AccessDeniedCustom()
 		{
 			return View();
 		}
 		public IActionResult ErrorPage()
 		{
-			// ERR_CACHE_MISS hatası olduğunda Index sayfasına yönlendir
 			return RedirectToAction("Index", "Home");
 		}
-	}
+
+        public async Task<List<BasketItem>> GetItemsByUserIdAsync(string userId)
+        {
+            return await (await _basketItemRepository.ReadAsync())
+                .Where(x => x.AppUserId == userId)
+                .ToListAsync();
+        }
+    }
 }

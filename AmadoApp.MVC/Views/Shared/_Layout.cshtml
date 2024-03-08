@@ -1,4 +1,6 @@
-﻿﻿
+﻿@using AmadoApp.Business.ViewModels.PageVMs
+@model HomeVM﻿
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,36 +40,25 @@
                     <span class="nav-item"><a asp-area="Manage" asp-action="Index" asp-controller="Admin">Admin Panel</a></span>
                 }
             }
-            <div class="menu" onclick="toggleMenu()">&#9776; Menu</div>
-            <!-- <div class="basket-icon" onclick="openBasket()">🛒</div> -->
-            <span class="cart-btn" onclick="toggleCartModal()">
-                <i id="cart" class="fas fa-shopping-cart"></i>
-                <span class="cart-quantity">0</span>
-            </span>
-            <li class="nav-item dropdown no-arrow" style="list-style-type:none">
 
+
+            <div class="cart-btn">
+                <a asp-action="Index" asp-controller="Basket">
+                    <i id="cart" class="fas fa-shopping-cart"></i>
+                    <span class="cart-quantity" style="cursor: auto;">
+                        @(Model.BasketItems != null ? Model.BasketItems.Count : 0)
+                    </span>
+                </a>
+            </div>
+
+
+
+
+            <li class="nav-item dropdown no-arrow" style="list-style-type:none">
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small" style="font-weight:bold;font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">@User.Identity.Name</span>
                 <img class="img-profile rounded-circle" src="~/manage/img/undraw_profile.svg" style="width: 50px; height: 50px;">
-
             </li>
         </div>
-        <div class="cart-modal-overlay">
-            <div class="cart-modal cart-container">
-                <i id="close-btn" class="fas fa-times"></i>
-                <h1 class="cart-is-empty">Cart is empty</h1>
-
-                <div class="product-rows cart-items">
-                    <!-- Buraya seçilen ürünler listelenecek -->
-                </div>
-
-                <div class="total">
-                    <h1 class="cart-total" style="color: #198754;font-weight:bold">TOTAL</h1>
-                    <span class="total-price" style="color: #198754;font-weight:bold">$0</span>
-                    <button class="purchase-btn">PURCHASE</button>
-                </div>
-            </div>
-        </div>
-
     </header>
 
     <main>
@@ -138,7 +129,7 @@
                                 @if (!User.Identity.IsAuthenticated)
                                 {
                                     <li class="nav-item"><a asp-action="Login" asp-controller="Account" style="text-decoration:none;color:#333">Login</a></li>
-                                    <li class="nav-item"><a  asp-action="Register" asp-controller="Account" style="text-decoration:none;color:#333">Register</a></li>
+                                    <li class="nav-item"><a asp-action="Register" asp-controller="Account" style="text-decoration:none;color:#333">Register</a></li>
                                 }
                                 else
                                 {
@@ -201,86 +192,7 @@
     <script src="~/assets/js/plugins.js"></script>
     <script src="~/assets/js/active.js"></script>
     <script src="~/assets/js/script.js"></script>
-    <script>
-        // Bu işlev, satın alma modalını açar
-        function openPurchaseModal() {
-            $('#purchaseModal').modal('show');
-        }
-
-        // Bu işlev, satın alma işlemi için formun gönderilmesini işler
-        $('#paymentForm').submit(function (e) {
-            e.preventDefault(); // Formun normal davranışını engeller (sayfayı yenilemez)
-
-            // Burada ödeme işlemini işleyebilirsiniz, örneğin:
-            var cardNumber = $('#cardNumber').val();
-            var expiryDate = $('#expiryDate').val();
-            var cvv = $('#cvv').val();
-
-            // Burada ödeme işlemi gerçekleştirilebilir
-            // Örnek olarak, bu verileri bir API'ye gönderip işleyebilirsiniz
-
-            // Ödeme işlemi başarılı olduktan sonra modalı kapatın
-            $('#purchaseModal').modal('hide');
-        });
-    </script>
+    <script src="~/assets/basket.js"></script>
 
 </body>
 </html>
-<script>
-    function removeCartItem(event) {
-        var buttonClicked = event.target;
-        buttonClicked.parentElement.parentElement.remove();
-        updateCartTotal();
-    }
-
-    function quantityChanged(event) {
-        var input = event.target;
-        if (isNaN(input.value) || input.value <= 0) {
-            input.value = 1;
-        }
-        updateCartTotal();
-    }
-
-    function updateCartTotal() {
-        var cartItems = document.querySelectorAll('.cart-item');
-        var total = 0;
-
-        cartItems.forEach(function (cartItem) {
-            var price = parseFloat(cartItem.querySelector('.cart-item-price').innerText.replace('$', ''));
-            var quantity = cartItem.querySelector('.cart-item-quantity').value;
-            total += price * quantity;
-        });
-
-        document.querySelector('.total-price').innerText = '$' + total;
-    }
-
-    function purchaseClicked() {
-        alert('Thank you for your purchase!');
-        var cartItems = document.querySelector('.cart-items');
-        while (cartItems.hasChildNodes()) {
-            cartItems.removeChild(cartItems.firstChild);
-        }
-        updateCartTotal();
-    }
-
-    document.querySelector('.purchase-btn').addEventListener('click', purchaseClicked);
-</script>
-<script>
-    function toggleCartModal() {
-        var cartModalOverlay = document.querySelector('.cart-modal-overlay');
-        if (cartModalOverlay.style.transform === 'translateX(-200%)') {
-            cartModalOverlay.style.transform = 'translateX(0)';
-        } else {
-            cartModalOverlay.style.transform = 'translateX(-200%)';
-        }
-    }
-</script>
-<script>
-    function purchaseClicked() {
-        var total = document.querySelector('.total-price').innerText;
-        document.getElementById('paymentTotalPrice').innerText = total;
-        openPurchaseModal();
-    }
-
-    document.querySelector('.purchase-btn').addEventListener('click', purchaseClicked);
-</script>

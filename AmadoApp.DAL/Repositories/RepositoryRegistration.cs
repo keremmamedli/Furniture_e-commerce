@@ -17,6 +17,7 @@ namespace AmadoApp.DAL.Repositories
             services.AddScoped<IBrandRepository, BrandRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IColorRepository, ColorRepository>();
+            services.AddScoped<IBasketItemRepository, BasketItemRepository>();
         }
     }
 }
